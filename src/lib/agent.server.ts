@@ -1305,6 +1305,28 @@ ${physicsContext}`
       } catch { await sync; }
     }
 
+    // Auto-evolution: every finished Criar run becomes a lesson in the "Evolução Contínua" motor, committed to the official repo.
+    if ((mode === "build" || planApproved) && !paused && finalStatus !== "error" && writtenContent.size + patchSnippets.size > 0 && input.userMessage) {
+      const learnJob = (async () => {
+        try {
+          const { extractProjectLesson, EVOLUTION_MOTOR } = await import("./project-learning");
+          const lesson = extractProjectLesson({ chatTitle: chat.title, userMessage: input.userMessage!, toolLog: state.toolLog as any, writtenPaths: [...writtenContent.keys(), ...patchSnippets.keys()] });
+          if (!lesson) return;
+          let { data: motor } = await db.from("cognitive_motors").select("id").eq("slug", EVOLUTION_MOTOR.slug).maybeSingle();
+          if (!motor) ({ data: motor } = await db.from("cognitive_motors").insert({ user_id: userId, ...EVOLUTION_MOTOR }).select("id").single());
+          if (!motor) return;
+          await db.from("cognitive_knowledge").insert({ user_id: userId, motor_id: motor.id, title: lesson.title, content: lesson.content, category: "projeto", kind: "concept", keywords: lesson.keywords, status: "active", visibility: "global", validation: "verified", learned_how: "aprendizado automático do Modo Criar" });
+          const { syncMotorToRepo } = await import("./knowledge-sync.server");
+          await syncMotorToRepo(userId, motor.id);
+        } catch (e) { console.error("[auto-evolution]", e); }
+      })();
+      try {
+        const spec = "cloudflare:workers";
+        const cf: any = await import(/* @vite-ignore */ spec);
+        if (typeof cf?.waitUntil === "function") cf.waitUntil(learnJob); else await learnJob;
+      } catch { await learnJob; }
+    }
+
     await persistAgentEvent(paused ? "execution_paused" : "execution_finished", paused ? "paused" : finalStatus === "error" ? "failed" : "completed",
       paused ? "Execução pausada com checkpoint" : "Ciclo de execução finalizado",
       { checkpoint_id: paused?.checkpointId ?? null, operations: state.toolLog.length, duration_ms: Date.now() - startedAt });
