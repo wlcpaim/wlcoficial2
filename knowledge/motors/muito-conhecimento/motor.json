@@ -193,18 +193,6 @@
       "content": "Modelo de gestão composto por três pilares essenciais: Segurança Psicológica (o time pode errar e ser honesto), Expectativa Clara (o quê, quando, critério e autonomia) e Reconhecimento (específico, público e imediato). A falha ocorre quando um dos pilares é negligenciado: falta de Segurança gera medo/omissão; falta de Expectativa gera desorientação; falta de Reconhecimento gera esgotamento."
     },
     {
-      "title": "Modelo SCI (Situação-Comportamento-Impacto)",
-      "kind": "method",
-      "category": "Feedback",
-      "keywords": [
-        "sci",
-        "feedback",
-        "gestão de pessoas"
-      ],
-      "validation": "source_validated",
-      "content": "Técnica de feedback para correções evitando ataques pessoais. Situação: descreve o contexto. Comportamento: descreve a ação observável ou erro cometido. Impacto: descreve a consequência real daquele comportamento. Foca no processo e no fato, não na personalidade do indivíduo."
-    },
-    {
       "title": "Modelo 4D para Demissões",
       "kind": "method",
       "category": "Liderança",
@@ -252,6 +240,71 @@
       ],
       "validation": "source_validated",
       "content": "Na mediação de conflitos ou comunicação intercultural, o impacto (o que o outro sentiu/recebeu) é considerado o fato consumado, enquanto a intenção é apenas a motivação do agente. Reconhecer o impacto antes de justificar a intenção é a base para a maturidade social e correção de vieses."
+    },
+    {
+      "title": "Modelo NIPA de Negociação",
+      "kind": "method",
+      "category": "Negociação e Persuasão",
+      "keywords": [
+        "negociação",
+        "nipa",
+        "posições",
+        "interesses",
+        "acordo"
+      ],
+      "validation": "source_validated",
+      "content": "Estrutura para negociações éticas focada em interesses, não em posições. Fases: 1. Necessidades (descobrir interesses reais via perguntas abertas, evitando ancoragem inicial); 2. Interesses ocultos (identificar camadas emocionais e inconscientes através da escuta ativa); 3. Possibilidades (gerar pelo menos 3 opções, buscando expandir o valor total antes de dividir); 4. Acordo (formalização com 4 elementos: o quê, quando, quem e consequência)."
+    },
+    {
+      "title": "Modelo PONTE de Mediação",
+      "kind": "method",
+      "category": "Mediação de Conflitos",
+      "keywords": [
+        "mediação",
+        "ponte",
+        "conflito",
+        "neutralidade"
+      ],
+      "validation": "source_validated",
+      "content": "Protocolo para mediadores terceiros manterem neutralidade processual. Fases: 1. Preparar (conversas individuais obrigatórias para identificar limites e evitar explosões); 2. Ouvir (sessão conjunta com regras de convivência rígidas e reformulação); 3. Nomear (traduzir queixas em necessidades reais); 4. Transformar (mediador pergunta, partes geram soluções); 5. Estabelecer (acordo claro com 4 elementos)."
+    },
+    {
+      "title": "Regra da Simetria de Poder",
+      "kind": "rule",
+      "category": "Mediação de Conflitos",
+      "keywords": [
+        "abuso",
+        "mediação",
+        "simetria",
+        "poder"
+      ],
+      "validation": "source_validated",
+      "content": "A mediação exige simetria de poder entre as partes. Em casos de abuso, violência, controle sistemático ou desigualdade extrema, a mediação é contraindicada, pois a estrutura torna-se uma plataforma de manipulação. Nesses cenários, o mediador deve recusar o papel e encaminhar para proteção especializada."
+    },
+    {
+      "title": "Regra da Validação do Acordo",
+      "kind": "rule",
+      "category": "Negociação e Mediação",
+      "keywords": [
+        "acordo",
+        "validação",
+        "regras de negociação"
+      ],
+      "validation": "source_validated",
+      "content": "Todo acordo, seja de negociação ou mediação, deve ser repetido em voz alta pelas partes antes de ser considerado finalizado. O resumo deve obrigatoriamente conter quatro elementos: escopo (o quê), prazo (quando), responsável (quem) e consequência em caso de descumprimento."
+    },
+    {
+      "title": "Técnica de Tradução de Queixa em Necessidade",
+      "kind": "technique",
+      "category": "Mediação de Conflitos",
+      "keywords": [
+        "mediação",
+        "queixa",
+        "necessidade",
+        "comunicação"
+      ],
+      "validation": "source_validated",
+      "content": "Habilidade central de mediação onde o mediador traduz a fala agressiva ou subjetiva (queixa) em uma demanda objetiva e legítima (necessidade). Exemplo: 'Ele nunca me escuta' traduzido para 'Você precisa ser ouvido antes de decisões que afetam o seu trabalho?'. Isso reduz a defensividade e foca na solução."
     }
   ]
 }
