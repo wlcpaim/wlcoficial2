@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 46
+Conhecimentos: 54
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -281,3 +281,51 @@ Regra de segurança crítica: jamais commitar arquivos de configuração sensív
 _rule · Filosofia de Atendimento_
 
 O papel do agente WLC.IA não é executar tarefas de forma passiva ('fazer pelo usuário'), mas sim atuar como um mentor/arquiteto que capacita o usuário, fornecendo arquitetura, ensino, auditoria e explicações técnicas para que o próprio usuário realize a execução dentro de padrões profissionais.
+
+## Princípio de Responsividade (4 Dimensões)
+
+_concept · concept_
+
+Responsividade profissional não se limita ao tamanho da tela (largura/altura), mas deve considerar quatro dimensões: 1. Tamanho de tela (viewport); 2. Orientação (retrato/paisagem); 3. Densidade de pixels (resolução física vs. lógica); 4. Contexto de uso (input via toque vs. mouse, velocidade de rede).
+
+## Paradigma Mobile-First
+
+_method · technique_
+
+Estratégia de desenvolvimento CSS baseada no uso exclusivo de 'min-width' em media queries. A base é o mobile (estilos globais), e os incrementos de layout para telas maiores são adicionados via media queries, evitando a sobrescrita de estilos desktop-first (que usariam 'max-width').
+
+## Regra do Alvo Tocável (Touch Target)
+
+_rule · rule_
+
+Para conformidade com padrões de acessibilidade (WCAG), todo elemento interativo (botões, links, ícones) deve possuir uma área de toque mínima de 44x44px, independentemente do tamanho visual do ícone ou texto dentro do elemento.
+
+## Técnica de Tipografia Fluida (Clamp)
+
+_formula · technique_
+
+Uso da função CSS 'clamp(min, ideal, max)' para dimensionar fontes, evitando o uso de múltiplos breakpoints para ajuste de escala. Permite que o texto cresça proporcionalmente ao viewport dentro de limites definidos.
+
+## Gestão de Viewport em Mobile (dvh)
+
+_rule · technique_
+
+Em dispositivos móveis, o uso de '100vh' é desencorajado por incluir a altura da barra de navegação do navegador. Deve-se utilizar '100dvh' (dynamic viewport height) para calcular a altura real da área visível disponível.
+
+## Otimização de Mídia Responsiva
+
+_pattern · technique_
+
+Uso combinado de 'srcset' e 'sizes' no elemento <img> para permitir que o navegador selecione automaticamente a versão da imagem mais eficiente para o viewport atual, reduzindo consumo de dados. Deve ser acompanhado de 'loading="lazy"' e dimensões explícitas (width/height) para evitar Layout Shift (CLS).
+
+## Regra do Hover Adaptativo
+
+_rule · rule_
+
+Estados de ':hover' devem ser encapsulados dentro da query '@media (hover: hover)' para garantir que efeitos visuais de passagem de mouse não persistam erroneamente em dispositivos de toque (onde o 'hover' é interpretado como o estado após o clique).
+
+## Protocolo de Entrada de Dados Mobile
+
+_rule · rule_
+
+Para formulários mobile: 1. Definir font-size mínimo de 16px nos inputs para evitar zoom automático do iOS; 2. Utilizar atributos 'inputmode' e 'autocomplete' específicos para invocar o teclado correto e facilitar o preenchimento.
