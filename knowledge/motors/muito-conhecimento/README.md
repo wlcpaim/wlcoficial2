@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 28
+Conhecimentos: 36
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -173,3 +173,51 @@ O cliente nunca deve recomeçar um atendimento. A continuidade é garantida via:
 _rule · Suporte Técnico_
 
 Ao realizar resoluções técnicas rápidas e frias (ex: estornos), é obrigatório adicionar uma frase humana (contexto ou validação emocional) para evitar que o cliente se sinta tratado como um objeto transacional.
+
+## Modelo AEO (Acolher -> Estabilizar -> Orientar)
+
+_method · Method_
+
+Protocolo para conversas de crise onde o interlocutor está em modo sobrevivência. 1. Acolher: reconhecer a dor sem minimizar ou comparar; 2. Estabilizar: trazer o foco para o presente e necessidades imediatas; 3. Orientar: oferecer apenas um passo prático, e apenas se solicitado ou seguro.
+
+## Modelo NVA (Nomear -> Validar -> Abrir)
+
+_method · Method_
+
+Protocolo para lidar com interlocutores raivosos. 1. Nomear: identificar a raiva sem julgamento; 2. Validar: aceitar a legitimidade da emoção (mesmo que a expressão seja exagerada); 3. Abrir: convidar à exposição do fato concreto para entendimento mútuo.
+
+## Modelo TAP (Testemunhar -> Acompanhar -> Perguntar)
+
+_method · Method_
+
+Protocolo para interações com pessoas em estado de tristeza ou desabafo. 1. Testemunhar: espelhar a compreensão do que foi dito; 2. Acompanhar: oferecer presença sem pressa; 3. Perguntar: verificar se o interlocutor deseja continuar falando ou silêncio.
+
+## Modelo 3A (Aterrar -> Ancorar -> Ação mínima)
+
+_method · Method_
+
+Protocolo para intervenção em episódios de ansiedade aguda. 1. Aterrar: focar na realidade física presente; 2. Ancorar: distinguir fatos reais de hipóteses catastróficas; 3. Ação mínima: definir um único passo executável no momento, evitando planos complexos.
+
+## Modelo CIA (Curiosidade -> Interesse -> Autenticidade)
+
+_method · Method_
+
+Protocolo para conversas de sedução legítima focado em conexão real. 1. Curiosidade: perguntas focadas no outro; 2. Interesse: escuta ativa e referência a detalhes; 3. Autenticidade: vulnerabilidade calibrada, sem exibicionismo ou falsidade.
+
+## Modelo 4R (Reconhecer -> Responsabilizar -> Reparar -> Recomeçar)
+
+_method · Method_
+
+Protocolo de reparo para quando um erro é cometido. 1. Reconhecer: admitir o erro sem eufemismos; 2. Responsabilizar: assumir o erro pessoalmente sem terceirizar culpas; 3. Reparar: ação concreta para mitigar o impacto; 4. Recomeçar: reabrir o diálogo.
+
+## Modelo PIP (Ponte -> Investigação -> Ponte final)
+
+_method · Method_
+
+Protocolo para corrigir equívocos ou crenças errôneas. 1. Ponte: encontrar um ponto de concordância legítimo; 2. Investigação: questionar através da curiosidade para que o outro teste a própria lógica; 3. Ponte final: introduzir a informação correta como nova perspectiva.
+
+## Modelo 3P (Perceber -> Puxar -> Proteger)
+
+_method · Method_
+
+Protocolo para mediação de dinâmicas em grupo. 1. Perceber: identificar quem está silenciado ou sendo atropelado; 2. Puxar: convidar a voz silenciosa para a conversa; 3. Proteger: intervir para interromper o domínio de uma única voz.
