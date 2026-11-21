@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 54
+Conhecimentos: 55
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -329,3 +329,9 @@ Estados de ':hover' devem ser encapsulados dentro da query '@media (hover: hover
 _rule · rule_
 
 Para formulários mobile: 1. Definir font-size mínimo de 16px nos inputs para evitar zoom automático do iOS; 2. Utilizar atributos 'inputmode' e 'autocomplete' específicos para invocar o teclado correto e facilitar o preenchimento.
+
+## Regra da Validação de Responsividade em CI
+
+_rule · Qualidade de Software_
+
+Para garantir a integridade da experiência do usuário, testes de responsividade em múltiplos breakpoints (mobile, tablet, desktop) devem ser integrados ao pipeline de CI. Falhas em qualquer breakpoint devem interromper o processo de deploy, tratando a responsividade como um requisito de qualidade inegociável, não como uma funcionalidade opcional.
