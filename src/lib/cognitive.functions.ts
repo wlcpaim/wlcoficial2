@@ -58,6 +58,8 @@ export const createMotor = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     const { data: conv, error: e2 } = await db.from("cognitive_conversations").insert({ user_id: context.userId, motor_id: motor.id, title: "Primeira conversa" }).select("id").single();
     if (e2) throw new Error(e2.message);
+    const { syncMotorToRepo } = await import("./knowledge-sync.server");
+    await background(syncMotorToRepo(context.userId, motor.id));
     return { motorId: motor.id as string, conversationId: conv.id as string };
   });
 
@@ -127,7 +129,8 @@ export const sendCognitiveMessage = createServerFn({ method: "POST" })
     await logEvent(db, context.userId, motorId, "reuse", `Resposta com ${knowledge.length} conhecimentos recuperados`, { message_id: am?.id, used: used.length });
 
     // Extraction + consolidation of what this exchange taught
-    await background(learn(db, context.userId, motorId, `PERGUNTA:\n${data.message}\n\nRESPOSTA:\n${answer}`, { messageId: userMsg.id }, settings?.share_new_knowledge ?? false));
+    const { syncMotorToRepo } = await import("./knowledge-sync.server");
+    await background(learn(db, context.userId, motorId, `PERGUNTA:\n${data.message}\n\nRESPOSTA:\n${answer}`, { messageId: userMsg.id }, settings?.share_new_knowledge ?? false).then(() => syncMotorToRepo(context.userId, motorId)));
     return { ok: true as const, messageId: am?.id as string };
   });
 
@@ -187,6 +190,7 @@ export const finalizeDocument = createServerFn({ method: "POST" })
       await logEvent(db, context.userId, doc.motor_id, "interpretation", `Análise técnica de ${doc.name}: ${ok.length} processados, ${skipped} não interpretados`, { document_id: doc.id });
       const material = `DOCUMENTO ${doc.name}\nANÁLISE:\n${analysis.text}\n\nTRECHOS:\n${ok.slice(0, 30).map((f) => `### ${f.path}\n${f.content!.slice(0, 3000)}`).join("\n\n")}`;
       const stats = await learn(db, context.userId, doc.motor_id, material, { documentId: doc.id }, settings?.share_new_knowledge ?? false);
+      await background((await import("./knowledge-sync.server")).syncMotorToRepo(context.userId, doc.motor_id));
       return { status, processed: ok.length, skipped, learned: stats };
     } catch (e) {
       const msg = (e as Error).message;
@@ -256,4 +260,15 @@ export const exportMotorFiles = createServerFn({ method: "POST" })
     }
     files["cognitive-engine/global-knowledge/index.json"] = J(globalIdx);
     return { files };
+  });
+
+/** Pushes every motor of the user to the official repository now. */
+export const syncAllMotors = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { syncMotorToRepo } = await import("./knowledge-sync.server");
+    const { data } = await (context.supabase as any).from("cognitive_motors").select("id");
+    let ok = 0; let lastError: string | undefined;
+    for (const m of data ?? []) { const r = await syncMotorToRepo(context.userId, m.id); if (r.ok) ok++; else lastError = r.error; }
+    return { total: (data ?? []).length, ok, error: lastError ?? null };
   });

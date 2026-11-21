@@ -3,7 +3,7 @@ import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { decryptSecret, encryptSecret, redactSecrets, secretHint } from "./crypto.server";
 import { listGeminiModels, pingGemini } from "./ai.server";
-import { auditGithub, getAuthenticatedUser } from "./github.server";
+import { auditGithub, getAuthenticatedUser, listRepos, getRepo } from "./github.server";
 import { DEFAULT_GEMINI_MODEL, DEFAULT_VERCEL_MODEL } from "./models";
 
 async function admin() {
@@ -229,4 +229,33 @@ export const testVercelKey = createServerFn({ method: "POST" })
       await db.from("api_connections").update({ status: "error", last_tested_at: now, last_error: msg }).eq("id", row.id);
       throw new Error(msg);
     }
+  });
+
+async function githubRow(userId: string) {
+  const db = await admin();
+  const { data } = await db.from("api_connections").select("id, secret_ciphertext, metadata").eq("user_id", userId).eq("provider", "github").limit(1).maybeSingle();
+  if (!data) throw new Error("GitHub não conectado");
+  return { db, row: data, token: await decryptSecret(data.secret_ciphertext) };
+}
+
+/** Lists the repositories the saved GitHub token can write to. */
+export const listKnowledgeRepos = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { token } = await githubRow(context.userId);
+    const repos = await listRepos(token);
+    return repos.map((r: any) => ({ full: r.full_name ?? r.fullName ?? r.full, branch: r.default_branch ?? r.defaultBranch ?? "main" }));
+  });
+
+/** Fixes the official WLC.IA repository where every motor is committed. */
+export const setKnowledgeRepo = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((d) => z.object({ full: z.string().trim().regex(/^[\w.-]+\/[\w.-]+$/) }).parse(d))
+  .handler(async ({ data, context }) => {
+    const { db, row, token } = await githubRow(context.userId);
+    const r: any = await getRepo(token, data.full);
+    const repo = { full: r.full_name ?? r.fullName ?? data.full, branch: r.default_branch ?? r.defaultBranch ?? "main" };
+    const { error } = await db.from("api_connections").update({ metadata: { ...((row.metadata as object) ?? {}), knowledge_repo: repo } }).eq("id", row.id);
+    if (error) throw new Error(error.message);
+    return repo;
   });
