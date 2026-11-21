@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 12
+Conhecimentos: 14
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -72,8 +72,20 @@ _experience · Performance_
 
 O gerenciamento de memória em ambientes como V8 (Node/Browser) requer evitar retenção desnecessária de referências. O uso de Memory Leaks através de listeners não removidos ou closures globais é a principal causa de degradação em apps long-running. O monitoramento deve incluir Heap Snapshots para identificar objetos que não são coletados pelo Garbage Collector.
 
-## Base de Conhecimento Geral Unificada (Níveis 1 a 10)
+## Currículo Universal de Conhecimento
 
-_architecture · Arquitetura Educacional_
+_method · Educação_
 
-Mapa estrutural que organiza o conhecimento formal em 10 níveis de complexidade, desde a Educação Infantil até a Pós-Graduação (Lato e Stricto Sensu). A estrutura utiliza a 'Regra de Navegação' (identificação do nível e calibração de profundidade), 'Regra de Honestidade' (foco em estrutura/ementa e priorização de tópicos) e 'Regra de Conexão' (interdisciplinaridade).
+Mapa estrutural que organiza o conhecimento formal (Educação Básica ao Mestrado/Doutorado) para orientar a profundidade e a abrangência de respostas de IA. Baseia-se na identificação de nível, matéria e estágio de progressão acadêmica.
+
+## Regra de Calibração Dinâmica
+
+_rule · Cognição de IA_
+
+Protocolo para ajustar a densidade técnica e a complexidade de uma resposta de acordo com o nível educacional identificado na consulta do usuário, evitando simplificação excessiva ou excesso de rigor técnico fora de contexto.
+
+## Regra de Conexão Interdisciplinar
+
+_rule · Cognição de IA_
+
+Princípio de síntese que busca relacionar um conceito central através de diferentes disciplinas (ex: História, Geografia, Literatura) para demonstrar domínio sistêmico do conhecimento, em vez de fornecer listas de conteúdos isolados.
