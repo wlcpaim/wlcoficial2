@@ -86,6 +86,102 @@
       ],
       "validation": "confirmed",
       "content": "Para evitar Cumulative Layout Shift (CLS), deve-se definir dimensões explícitas (width/height) para imagens, reservar espaço para anúncios e utilizar font-display: swap para fontes customizadas."
+    },
+    {
+      "title": "CUBE CSS (Composition, Utility, Block, Exception)",
+      "kind": "method",
+      "category": "Methodology",
+      "keywords": [
+        "cube css",
+        "arquitetura",
+        "metodologia"
+      ],
+      "validation": "source_validated",
+      "content": "Metodologia de arquitetura CSS que separa responsabilidades: Composition (layout/estrutura, ex: stack, cluster), Utility (helpers, ex: .text-center), Block (componentes independentes, ex: .card) e Exception (estados, ex: .is-active). Permite criar componentes que desconhecem seu contexto de posicionamento."
+    },
+    {
+      "title": "Cascade Layers (@layer)",
+      "kind": "technique",
+      "category": "Arquitetura CSS",
+      "keywords": [
+        "@layer",
+        "cascata",
+        "especificidade"
+      ],
+      "validation": "source_validated",
+      "content": "Recurso nativo para definir a ordem de prioridade da cascata explicitamente, sem depender de especificidade ou !important. A ordem declarada na primeira linha do arquivo define a precedência. @layer inverte a lógica do !important caso este seja usado entre camadas."
+    },
+    {
+      "title": "Container Queries (cqw, cqi, cqh, cqb)",
+      "kind": "technique",
+      "category": "Responsividade",
+      "keywords": [
+        "container queries",
+        "responsividade",
+        "cqi"
+      ],
+      "validation": "source_validated",
+      "content": "Técnica de responsividade baseada no espaço disponível do elemento (container) em vez do viewport. Utiliza propriedades como 'container-type: inline-size' e unidades relativas como 'cqi' (1% do inline size do container), permitindo que componentes sejam verdadeiramente reutilizáveis em diferentes layouts."
+    },
+    {
+      "title": ":has() (Seletor Pai)",
+      "kind": "technique",
+      "category": "CSS Moderno",
+      "keywords": [
+        ":has()",
+        "seletor pai",
+        "performance"
+      ],
+      "validation": "source_validated",
+      "content": "Pseudo-classe que permite estilizar um elemento pai com base na existência ou estado de seus filhos (ex: .card:has(img)). Deve ser utilizado com seletores de filho direto (>) ou escopo restrito para evitar degradação de performance por recálculo de estilo excessivo."
+    },
+    {
+      "title": "@property (CSS Custom Properties com tipo)",
+      "kind": "technique",
+      "category": "CSS Moderno",
+      "keywords": [
+        "@property",
+        "variáveis css",
+        "animação"
+      ],
+      "validation": "source_validated",
+      "content": "Permite definir tipos, valores iniciais e herança para variáveis CSS. Fundamental para animar propriedades que nativamente não suportariam transições, como ângulos em gradientes (conic-gradient)."
+    },
+    {
+      "title": "OKLCH Color Space",
+      "kind": "technique",
+      "category": "Design Tokens",
+      "keywords": [
+        "oklch",
+        "cores",
+        "design tokens"
+      ],
+      "validation": "source_validated",
+      "content": "Espaço de cor moderno que oferece percepção visual uniforme. Mudanças nos valores numéricos (luminosidade, croma, matiz) resultam em alterações perceptíveis de forma consistente, superior ao HSL. Recomendado para novos projetos e sistemas de design."
+    },
+    {
+      "title": "Performance: Content-visibility",
+      "kind": "technique",
+      "category": "Performance",
+      "keywords": [
+        "performance",
+        "content-visibility",
+        "renderização"
+      ],
+      "validation": "source_validated",
+      "content": "Propriedade que otimiza o render de elementos fora da tela (off-screen). Ao usar 'content-visibility: auto' com 'contain-intrinsic-size', o navegador pula o render até que o elemento se aproxime do viewport, reduzindo drasticamente o tempo de carregamento inicial."
+    },
+    {
+      "title": "@starting-style (Animação de entrada)",
+      "kind": "technique",
+      "category": "CSS Moderno",
+      "keywords": [
+        "@starting-style",
+        "animação",
+        "transição"
+      ],
+      "validation": "source_validated",
+      "content": "Regra at-rule que permite definir o estado inicial de um elemento que acabou de entrar no DOM, possibilitando transições de entrada (ex: de display: none/visibility: hidden para visível) sem a necessidade de manipular classes via JavaScript com atrasos de tempo."
     }
   ]
 }
