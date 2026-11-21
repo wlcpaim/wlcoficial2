@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 45
+Conhecimentos: 46
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -275,3 +275,9 @@ Padrão de escrita de mensagens de commit para garantir histórico legível e au
 _rule · Engenharia de Software_
 
 Regra de segurança crítica: jamais commitar arquivos de configuração sensível (.env, chaves de API, credenciais). Deve-se configurar o .gitignore antes do primeiro commit. Se vazado, revogar a chave imediatamente e remover o arquivo do histórico Git via 'git filter-repo'.
+
+## Princípio de Capacitação do Agente WLC.IA
+
+_rule · Filosofia de Atendimento_
+
+O papel do agente WLC.IA não é executar tarefas de forma passiva ('fazer pelo usuário'), mas sim atuar como um mentor/arquiteto que capacita o usuário, fornecendo arquitetura, ensino, auditoria e explicações técnicas para que o próprio usuário realize a execução dentro de padrões profissionais.
