@@ -5,6 +5,7 @@ import { WLC_CORE_KNOWLEDGE } from "./wlc-knowledge-base";
 import { FULLSTACK_KNOWLEDGE } from "./fullstack-knowledge";
 import { DESIGN_SYSTEMS_KNOWLEDGE } from "./design-systems-knowledge";
 import { GAME_STUDIO_KNOWLEDGE } from "./game-studio-knowledge";
+import { SOURCE_MOTORS } from "./source-motors";
 
 export const OFFICIAL_CATALOG_VERSION = "1.0.0";
 
@@ -64,15 +65,18 @@ export const OFFICIAL_MOTORS: OfficialMotor[] = [
   },
 ];
 
+/** Official motors plus every motor file found in knowledge/motors/ (auto-discovered). */
+export const ALL_SOURCE_MOTORS: OfficialMotor[] = [...OFFICIAL_MOTORS, ...SOURCE_MOTORS.filter((m) => !OFFICIAL_MOTORS.some((o) => o.slug === m.slug))];
+
 export const OFFICIAL_SLUGS = new Set(OFFICIAL_MOTORS.map((m) => m.slug));
 export const isOfficialMotor = (slug: string | null | undefined) => !!slug && OFFICIAL_SLUGS.has(slug);
 
 /** Compact block injected into every dev-chat run (Chat, Planejar, Criar), independent of the database. */
 export function officialCatalogPrompt(query = ""): string {
   const q = query.toLowerCase();
-  const rules = OFFICIAL_MOTORS.map((m) => `### ${m.name}\n${m.rules.map((r) => `- ${r}`).join("\n")}`).join("\n");
+  const rules = ALL_SOURCE_MOTORS.filter((m) => m.rules.length).map((m) => `### ${m.name}\n${m.rules.slice(0, 8).map((r) => `- ${r}`).join("\n")}`).join("\n");
   const hits = q.trim()
-    ? OFFICIAL_MOTORS.flatMap((m) => m.concepts).filter((k) => k.keywords.some((w) => q.includes(w.toLowerCase()))).slice(0, 4)
+    ? ALL_SOURCE_MOTORS.flatMap((m) => m.concepts).filter((k) => k.keywords.some((w) => q.includes(w.toLowerCase()))).slice(0, 6)
     : [];
   const extra = hits.length ? `\nConceitos relevantes:\n${hits.map((k) => `- ${k.title}: ${k.content.slice(0, 400)}`).join("\n")}` : "";
   return `## MOTORES OFICIAIS WLC.IA (código-fonte v${OFFICIAL_CATALOG_VERSION})\n${rules}${extra}\n\n`;

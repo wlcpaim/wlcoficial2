@@ -5,7 +5,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { slugify } from "./cognitive/files";
 import { COGNITIVE_RULES, buildMemoryBlock, buildStudyBlock } from "./cognitive/prompts";
 import type { ChatMsg } from "./ai.server";
-import { OFFICIAL_MOTORS } from "./cognitive-official-catalog";
+import { ALL_SOURCE_MOTORS as OFFICIAL_MOTORS } from "./cognitive-official-catalog";
 
 const uuid = z.string().uuid();
 
