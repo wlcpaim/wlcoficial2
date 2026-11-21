@@ -15,6 +15,17 @@
       ],
       "validation": "verified",
       "content": "Pedido: Corrija js/core/db.js exportando initDb e adicione js/pages/product-detail.js, js/pages/checkout.js, js/components/toast.js e js/components/product-card.js para a loja virtual funcionar perfeitamente.\nEstrutura de pastas usada: js/components, js/core, js/pages\nArquivos criados/alterados (4): js/components/toast.js, js/core/db.js, js/pages/checkout.js, js/pages/product-detail.js\nTipos de arquivo: js\nExecução sem erros de ferramenta."
+    },
+    {
+      "title": "Projeto: Presetlojavirtual",
+      "kind": "concept",
+      "category": "projeto",
+      "keywords": [
+        "js",
+        "pages"
+      ],
+      "validation": "verified",
+      "content": "Pedido: Continue a tarefa anterior de onde parou. Primeiro confira o que já foi gravado no repositório e não repita o que já está pronto.\nEstrutura de pastas usada: js/pages\nArquivos criados/alterados (1): js/pages/checkout.js\nTipos de arquivo: js\nExecução sem erros de ferramenta."
     }
   ]
 }
