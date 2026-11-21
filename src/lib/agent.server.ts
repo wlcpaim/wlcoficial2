@@ -66,6 +66,28 @@ const CHECKPOINT_INTERVAL = 12;
 const IGNORE = /(^|\/)(node_modules|\.git|dist|build|\.next|coverage|vendor)\//;
 
 
+/** Learned Cognitive Chat knowledge (active, user's global + recent) injected into every dev-chat run. Never fails the run. */
+async function loadLearnedKnowledge(db: DB, userId: string, query: string): Promise<string> {
+  try {
+    const anyDb = db as any;
+    const { data: motors } = await anyDb.from("cognitive_motors").select("id").eq("user_id", userId).limit(20);
+    const seen = new Set<string>(); const rows: any[] = [];
+    const add = (list: any[] | null) => { for (const r of list ?? []) if (r?.id && !seen.has(r.id)) { seen.add(r.id); rows.push(r); } };
+    if (query.trim()) for (const m of (motors ?? []).slice(0, 5)) {
+      const { data } = await anyDb.rpc("search_cognitive_knowledge", { _motor_id: m.id, _query: query.slice(0, 1000), _include_global: true, _limit: 8 });
+      add(data);
+    }
+    if (rows.length < 4) {
+      const { data } = await anyDb.from("cognitive_knowledge").select("id, title, category, content, validation")
+        .eq("user_id", userId).eq("status", "active").eq("visibility", "global").order("updated_at", { ascending: false }).limit(8);
+      add(data);
+    }
+    if (!rows.length) return "";
+    const lines = rows.slice(0, 12).map((r) => `- [${r.category ?? "geral"}${r.validation ? ` · ${r.validation}` : ""}] ${r.title}: ${String(r.content ?? "").slice(0, 500)}`);
+    return `## CONHECIMENTO COGNITIVO APRENDIDO (WLC.IA)\nAplique quando relevante (regras de negócio, conceitos ensinados, aprendizados de documentos). Itens "conflicting"/"hypothesis" não são certezas.\n${lines.join("\n")}\n\n`;
+  } catch { return ""; }
+}
+
 async function getAdmin() {
   const m = await import("@/integrations/supabase/client.server");
   return m.supabaseAdmin;
@@ -1106,7 +1128,8 @@ ${physicsContext}`
       social_tone: socialDecision.tone,
       contextual_followup: socialDecision.shortContextualReply,
     });
-    const messages: ChatMsg[] = [{ role: "system", content: systemPrompt(ctx.text, input.resumeNote, nexusWorkflow ?? undefined, combinedKnowledge, !!repo, cognitiveContext, modeSystemPrompt(mode, planApproved)) + modeInstruction(planApproved ? "build" : mode) + (mode === "chat" ? "" : buildCreationProtocol(planApproved ? "build" : mode, creationBlueprint)) }, ...history];
+    const learnedKnowledge = await loadLearnedKnowledge(db, userId, input.userMessage ?? "");
+    const messages: ChatMsg[] = [{ role: "system", content: learnedKnowledge + systemPrompt(ctx.text, input.resumeNote, nexusWorkflow ?? undefined, combinedKnowledge, !!repo, cognitiveContext, modeSystemPrompt(mode, planApproved)) + modeInstruction(planApproved ? "build" : mode) + (mode === "chat" ? "" : buildCreationProtocol(planApproved ? "build" : mode, creationBlueprint)) }, ...history];
     await persistAgentEvent(input.resumedCheckpointId ? "execution_resumed" : "execution_started", "running",
       input.resumedCheckpointId ? "Execução retomada de checkpoint" : "Execução iniciada",
       { resumed_checkpoint_id: input.resumedCheckpointId ?? null, model: chat.model });
@@ -1237,7 +1260,7 @@ ${physicsContext}`
         chat_id: chat.id,
         role: "assistant",
         content: finalText,
-        metadata: j({ completion: buildCompletionReport(state.toolLog, { paused: !!paused, pauseReason: paused?.message ?? null, error: finalStatus === "error" ? (paused?.message ?? "Erro na execução") : null, durationMs: Date.now() - startedAt }), tool_log: state.toolLog, operations: j(ledger.ops), provider: providerLabel(), model: isNexus ? "WLC.IA" : provider && (provider as Provider).kind === "builtin" ? "gemini-embutido" : chat.model, rotations, paused: !!paused, auto_continue: paused?.message === "Continuação automática", checkpoint_id: paused?.checkpointId ?? null, resumed_checkpoint_id: input.resumedCheckpointId ?? null }),
+        metadata: j({ mode, completion: buildCompletionReport(state.toolLog, { paused: !!paused, pauseReason: paused?.message ?? null, error: finalStatus === "error" ? (paused?.message ?? "Erro na execução") : null, durationMs: Date.now() - startedAt }), tool_log: state.toolLog, operations: j(ledger.ops), provider: providerLabel(), model: isNexus ? "WLC.IA" : provider && (provider as Provider).kind === "builtin" ? "gemini-embutido" : chat.model, rotations, paused: !!paused, auto_continue: paused?.message === "Continuação automática", checkpoint_id: paused?.checkpointId ?? null, resumed_checkpoint_id: input.resumedCheckpointId ?? null }),
       })
       .select("id")
       .single();

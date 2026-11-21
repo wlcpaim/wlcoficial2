@@ -132,26 +132,26 @@ function ChatPage() {
   const autoRetries = useRef(0);
   const [autoRetrying, setAutoRetrying] = useState(false);
   function retryAuto(): boolean {
-    if (autoOff || autoRetries.current >= AUTO_RESUME_RETRIES) { autoRetries.current = 0; setAutoRetrying(false); return false; }
+    if (mode === "chat" || autoOff || autoRetries.current >= AUTO_RESUME_RETRIES) { autoRetries.current = 0; setAutoRetrying(false); return false; }
     autoRetries.current++; setAutoRetrying(true);
     setTimeout(() => { void run(RESUME_MESSAGE, false, [], true); }, AUTO_RESUME_RETRY_MS);
     return true;
   }
   function scheduleAuto() {
-    if (autoOff || autoCount.current >= MAX_AUTO_RESUMES) return;
+    if (mode === "chat" || autoOff || autoCount.current >= MAX_AUTO_RESUMES) return;
     setAutoIn(Date.now() + 800);
   }
   useEffect(() => {
     if (autoIn === null) return;
-    const t = setTimeout(() => { setAutoIn(null); if (autoOff) return; autoCount.current++; autoRetries.current = 0; setAutoRetrying(true); void run(RESUME_MESSAGE, false, [], true); }, Math.max(0, autoIn - Date.now()));
+    const t = setTimeout(() => { setAutoIn(null); if (autoOff || mode === "chat") return; autoCount.current++; autoRetries.current = 0; setAutoRetrying(true); void run(RESUME_MESSAGE, false, [], true); }, Math.max(0, autoIn - Date.now()));
     return () => clearTimeout(t);
-  }, [autoIn, autoOff]);
+  }, [autoIn, autoOff, mode]);
   useEffect(() => {
-    if (!interrupted || busy) return;
+    if (mode === "chat" || !interrupted || busy) return;
     const key = String((interrupted as any).id ?? interrupted.created_at);
     if (handledInterrupt.current === key) return;
     handledInterrupt.current = key; scheduleAuto();
-  }, [interrupted, busy]);
+  }, [interrupted, busy, mode]);
 
   function submit() {
     const m = text.trim();
@@ -186,7 +186,7 @@ function ChatPage() {
       if (!r.ok && r.busy && isAutoResume && retryAuto()) { /* retrying shortly */ }
       else if (!r.ok && r.busy) { if (fromInput) setText(m); toast.info("A WLC.IA ainda está concluindo a execução anterior. Sua mensagem foi mantida no campo."); }
       else if (!r.ok) toast.error(r.error ?? "Falha no agente");
-      else if (r.paused) { if (!autoOff && autoCount.current < MAX_AUTO_RESUMES) scheduleAuto(); else toast.info("Checkpoint de segurança salvo. O progresso concluído foi preservado."); }
+      else if (r.paused) { if (mode === "chat") { /* chat never auto-continues */ } else if (!autoOff && autoCount.current < MAX_AUTO_RESUMES) scheduleAuto(); else toast.info("Checkpoint de segurança salvo. O progresso concluído foi preservado."); }
       else if (r.rotations.length) toast.info(`Chaves alternadas: ${r.rotations.join(" → ")}`);
     } catch (e) { toast.error((e as Error).message); scheduleAuto(); }
     finally {
@@ -209,13 +209,13 @@ function ChatPage() {
         <div className="mx-auto max-w-3xl space-y-4 p-3 sm:p-6">
           {msgs.isLoading ? <Loading /> : msgs.error ? <ErrorBox error={msgs.error} /> : !msgs.data?.length && !pending ? (
             <div className="py-16 text-center text-sm text-muted-foreground">Descreva o objetivo para a WLC.IA. Ela analisará o contexto disponível antes de agir.</div>
-          ) : msgs.data?.map((m) => <Msg key={m.id} m={m} />)}
+          ) : msgs.data?.map((m) => <Msg key={m.id} m={m} clean={mode === "chat"} />)}
           {pending && !msgs.data?.some((m) => m.role === "user" && m.content === pending) && <Msg m={{ role: "user", content: pending }} />}
           {busy && mode === "chat" && <div role="status" aria-live="polite" className="flex items-center gap-2 px-1 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" />WLC.IA está digitando…</div>}
           {busy && mode !== "chat" && <LiveStatus since={remoteBusy && session.data?.started_at ? new Date(session.data.started_at).getTime() : (startedAt ?? Date.now())} events={sending && !sessionActive ? [] : runEvents} onOpen={() => setActivityOpen(true)} />}
           {busy && runEvents.some((e) => typeof e.detail?.content === "string") && <Button size="sm" variant="outline" className="h-9" onClick={() => { const f = runEvents.find((e) => typeof e.detail?.content === "string"); if (f) setCodeOpen(String(f.id)); }}><FileCode2 className="h-4 w-4" />Ver código sendo criado ao vivo</Button>}
-          {(autoIn !== null || autoRetrying) && !sending && <div role="status" className="flex items-center gap-2 rounded-lg border border-primary/40 bg-primary/5 p-3 text-sm"><Loader2 className="h-4 w-4 animate-spin text-primary" /><span className="flex-1">Continuando a tarefa automaticamente… (tentativa {autoCount.current + 1} de {MAX_AUTO_RESUMES})</span><Button size="sm" variant="outline" onClick={() => { setAutoOff(true); setAutoIn(null); setAutoRetrying(false); }}>Pausar</Button></div>}
-          {interrupted && autoIn === null && !autoRetrying && <InterruptedCard lastStep={interrupted.title} onResume={() => { autoCount.current = 0; autoRetries.current = 0; setAutoOff(false); void run(RESUME_MESSAGE); }} />}
+          {mode !== "chat" && (autoIn !== null || autoRetrying) && !sending && <div role="status" className="flex items-center gap-2 rounded-lg border border-primary/40 bg-primary/5 p-3 text-sm"><Loader2 className="h-4 w-4 animate-spin text-primary" /><span className="flex-1">Continuando a tarefa automaticamente… (tentativa {autoCount.current + 1} de {MAX_AUTO_RESUMES})</span><Button size="sm" variant="outline" onClick={() => { setAutoOff(true); setAutoIn(null); setAutoRetrying(false); }}>Pausar</Button></div>}
+          {mode !== "chat" && interrupted && autoIn === null && !autoRetrying && <InterruptedCard lastStep={interrupted.title} onResume={() => { autoCount.current = 0; autoRetries.current = 0; setAutoOff(false); void run(RESUME_MESSAGE); }} />}
           <div ref={endRef} />
         </div>
       </div>
@@ -334,11 +334,12 @@ function AgentEventTimeline({ events, loading, realtime, error, onOpenCode }: { 
   );
 }
 
-function Msg({ m }: { m: { role: string; content: string; metadata?: any } }) {
+function Msg({ m, clean = false }: { m: { role: string; content: string; metadata?: any }; clean?: boolean }) {
   const md = m.metadata ?? {};
+  const plain = clean || md.mode === "chat";
   if (m.role === "user") return <div className="flex flex-col items-end gap-0.5">{Array.isArray(m.metadata?.attachments) && m.metadata.attachments.length > 0 && <div className="flex max-w-[85%] flex-wrap justify-end gap-1.5">{m.metadata.attachments.map((a: any, i: number) => a.kind === "image" ? <img key={i} src={a.content} alt={a.name} className="h-20 w-20 rounded-lg border object-cover" /> : <span key={i} className="inline-flex items-center gap-1 rounded-md border bg-muted px-2 py-1 text-xs"><FileCode2 className="h-3 w-3" />{a.name}</span>)}</div>}<div className="max-w-[85%] whitespace-pre-wrap break-anywhere rounded-lg bg-primary/15 px-3 py-2 text-sm">{m.content}</div><CopyButton text={m.content} /></div>;
   if (m.role === "system") return <div className="space-y-0.5"><div className="whitespace-pre-wrap break-anywhere rounded-lg border border-warning/40 bg-warning/10 p-3 text-xs">{m.content}</div><CopyButton text={m.content} /></div>;
-  const tools: any[] = md.tool_log ?? [];
+  const tools: any[] = plain ? [] : (md.tool_log ?? []);
   return (
     <div className="space-y-2">
       {tools.length > 0 && (
@@ -357,11 +358,11 @@ function Msg({ m }: { m: { role: string; content: string; metadata?: any } }) {
         </details>
       )}
       <div className={cn("prose-studio break-anywhere text-sm leading-relaxed")}><ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown></div>
-      {md.completion && (md.completion as CompletionReport).status !== "answered" && <Completion r={md.completion as CompletionReport} />}
+      {!plain && md.completion && (md.completion as CompletionReport).status !== "answered" && <Completion r={md.completion as CompletionReport} />}
       <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted-foreground">
         <CopyButton text={m.content} />
         {md.provider && <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />WLC.IA</span>}
-        {md.paused && <span className="inline-flex items-center gap-1 text-warning"><PauseCircle className="h-3 w-3" /> pausado em checkpoint</span>}
+        {!plain && md.paused && <span className="inline-flex items-center gap-1 text-warning"><PauseCircle className="h-3 w-3" /> pausado em checkpoint</span>}
       </div>
     </div>
   );
