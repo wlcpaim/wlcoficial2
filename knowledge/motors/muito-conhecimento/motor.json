@@ -180,19 +180,6 @@
       "content": "Princípio de síntese que busca relacionar um conceito central através de diferentes disciplinas (ex: História, Geografia, Literatura) para demonstrar domínio sistêmico do conhecimento, em vez de fornecer listas de conteúdos isolados."
     },
     {
-      "title": "Modelo SER de Liderança",
-      "kind": "method",
-      "category": "Liderança",
-      "keywords": [
-        "ser",
-        "liderança",
-        "gestão de pessoas",
-        "segurança psicológica"
-      ],
-      "validation": "source_validated",
-      "content": "Modelo de gestão composto por três pilares essenciais: Segurança Psicológica (o time pode errar e ser honesto), Expectativa Clara (o quê, quando, critério e autonomia) e Reconhecimento (específico, público e imediato). A falha ocorre quando um dos pilares é negligenciado: falta de Segurança gera medo/omissão; falta de Expectativa gera desorientação; falta de Reconhecimento gera esgotamento."
-    },
-    {
       "title": "Modelo 4D para Demissões",
       "kind": "method",
       "category": "Liderança",
@@ -305,6 +292,68 @@
       ],
       "validation": "source_validated",
       "content": "Habilidade central de mediação onde o mediador traduz a fala agressiva ou subjetiva (queixa) em uma demanda objetiva e legítima (necessidade). Exemplo: 'Ele nunca me escuta' traduzido para 'Você precisa ser ouvido antes de decisões que afetam o seu trabalho?'. Isso reduz a defensividade e foca na solução."
+    },
+    {
+      "title": "Modelo LEAL de Atendimento",
+      "kind": "method",
+      "category": "Atendimento ao Cliente",
+      "keywords": [
+        "atendimento",
+        "leal",
+        "suporte",
+        "fidelização",
+        "experiência do cliente"
+      ],
+      "validation": "source_validated",
+      "content": "Protocolo de atendimento estruturado em quatro fases sequenciais: 1. Localizar (entender o problema e obter dados sem presunções); 2. Empatizar (nomear o impacto emocional/perda específica para o cliente); 3. Agir (apresentar solução concreta, limites e prazos claros, evitando o uso de frases ambíguas); 4. Levar adiante (fechar o loop garantindo que o cliente saiba como continuar sem recomeçar o processo)."
+    },
+    {
+      "title": "Anti-padrões de Atendimento",
+      "kind": "rule",
+      "category": "Atendimento ao Cliente",
+      "keywords": [
+        "atendimento",
+        "anti-padrão",
+        "comunicação"
+      ],
+      "validation": "source_validated",
+      "content": "Lista de frases proibidas por destruírem a confiança ou criarem loop infinito de atendimento: 'Sinto muito pelo ocorrido' (genérica), 'Vou verificar e retorno' (sem prazo), 'Infelizmente não é possível' (sem alternativa), 'Você precisa entrar em contato com X' (empurra o problema), 'É a política da empresa' (desumaniza), 'Calma' (invalida), 'Como posso ajudar?' (redundante), 'Aguarde na linha' (sem tempo definido)."
+    },
+    {
+      "title": "Regra de Calibragem de Atendimento",
+      "kind": "rule",
+      "category": "Atendimento ao Cliente",
+      "keywords": [
+        "calibragem",
+        "perfis de cliente",
+        "atendimento"
+      ],
+      "validation": "source_validated",
+      "content": "A abordagem deve ser ajustada conforme o perfil do cliente: Irritado (foco em ação imediata, não peça calma); Confuso (oferecer apenas duas opções com trade-offs); Técnico (manter nível de detalhe); Leigo (usar analogias); Silencioso (fazer perguntas diretas com opções); Desabafo (perguntar se deseja solução ou apenas escuta)."
+    },
+    {
+      "title": "Regra de Ouro da Continuidade no Atendimento",
+      "kind": "rule",
+      "category": "Atendimento ao Cliente",
+      "keywords": [
+        "continuidade",
+        "atendimento",
+        "gestão de caso"
+      ],
+      "validation": "source_validated",
+      "content": "O cliente nunca deve recomeçar um atendimento. A continuidade é garantida via: registro de protocolo único, definição de um dono para o caso, histórico compartilhado entre atendentes e encerramento com registro do que foi feito e o que ficou pendente."
+    },
+    {
+      "title": "Regra do Suporte Técnico Humanizado",
+      "kind": "rule",
+      "category": "Suporte Técnico",
+      "keywords": [
+        "suporte técnico",
+        "humanização",
+        "atendimento"
+      ],
+      "validation": "source_validated",
+      "content": "Ao realizar resoluções técnicas rápidas e frias (ex: estornos), é obrigatório adicionar uma frase humana (contexto ou validação emocional) para evitar que o cliente se sinta tratado como um objeto transacional."
     }
   ]
 }
