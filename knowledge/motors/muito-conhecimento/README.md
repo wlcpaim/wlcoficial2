@@ -74,6 +74,6 @@ O gerenciamento de memória em ambientes como V8 (Node/Browser) requer evitar re
 
 ## Base de Conhecimento Geral Unificada (Níveis 1 a 10)
 
-_architecture · Metodologia de Navegação de Conhecimento_
+_architecture · Arquitetura Educacional_
 
-Arquitetura estrutural para calibração de respostas de IA, dividida em 10 níveis de complexidade (Educação Infantil ao Mestrado). Utiliza a 'Regra de Navegação' (identificar nível e calibrar profundidade), a 'Regra de Honestidade' (focar em estrutura/ementa e perguntar prioridades em vez de despejo de dados) e a 'Regra de Conexão' (cruzamento multidisciplinar de temas).
+Mapa estrutural que organiza o conhecimento formal em 10 níveis de complexidade, desde a Educação Infantil até a Pós-Graduação (Lato e Stricto Sensu). A estrutura utiliza a 'Regra de Navegação' (identificação do nível e calibração de profundidade), 'Regra de Honestidade' (foco em estrutura/ementa e priorização de tópicos) e 'Regra de Conexão' (interdisciplinaridade).
