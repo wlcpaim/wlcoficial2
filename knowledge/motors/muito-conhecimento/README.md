@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 24
+Conhecimentos: 28
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -90,12 +90,6 @@ _rule · Cognição de IA_
 
 Princípio de síntese que busca relacionar um conceito central através de diferentes disciplinas (ex: História, Geografia, Literatura) para demonstrar domínio sistêmico do conhecimento, em vez de fornecer listas de conteúdos isolados.
 
-## Modelo SER de Liderança
-
-_method · Liderança_
-
-Modelo de gestão composto por três pilares essenciais: Segurança Psicológica (o time pode errar e ser honesto), Expectativa Clara (o quê, quando, critério e autonomia) e Reconhecimento (específico, público e imediato). A falha ocorre quando um dos pilares é negligenciado: falta de Segurança gera medo/omissão; falta de Expectativa gera desorientação; falta de Reconhecimento gera esgotamento.
-
 ## Modelo 4D para Demissões
 
 _method · Liderança_
@@ -149,3 +143,33 @@ Todo acordo, seja de negociação ou mediação, deve ser repetido em voz alta p
 _technique · Mediação de Conflitos_
 
 Habilidade central de mediação onde o mediador traduz a fala agressiva ou subjetiva (queixa) em uma demanda objetiva e legítima (necessidade). Exemplo: 'Ele nunca me escuta' traduzido para 'Você precisa ser ouvido antes de decisões que afetam o seu trabalho?'. Isso reduz a defensividade e foca na solução.
+
+## Modelo LEAL de Atendimento
+
+_method · Atendimento ao Cliente_
+
+Protocolo de atendimento estruturado em quatro fases sequenciais: 1. Localizar (entender o problema e obter dados sem presunções); 2. Empatizar (nomear o impacto emocional/perda específica para o cliente); 3. Agir (apresentar solução concreta, limites e prazos claros, evitando o uso de frases ambíguas); 4. Levar adiante (fechar o loop garantindo que o cliente saiba como continuar sem recomeçar o processo).
+
+## Anti-padrões de Atendimento
+
+_rule · Atendimento ao Cliente_
+
+Lista de frases proibidas por destruírem a confiança ou criarem loop infinito de atendimento: 'Sinto muito pelo ocorrido' (genérica), 'Vou verificar e retorno' (sem prazo), 'Infelizmente não é possível' (sem alternativa), 'Você precisa entrar em contato com X' (empurra o problema), 'É a política da empresa' (desumaniza), 'Calma' (invalida), 'Como posso ajudar?' (redundante), 'Aguarde na linha' (sem tempo definido).
+
+## Regra de Calibragem de Atendimento
+
+_rule · Atendimento ao Cliente_
+
+A abordagem deve ser ajustada conforme o perfil do cliente: Irritado (foco em ação imediata, não peça calma); Confuso (oferecer apenas duas opções com trade-offs); Técnico (manter nível de detalhe); Leigo (usar analogias); Silencioso (fazer perguntas diretas com opções); Desabafo (perguntar se deseja solução ou apenas escuta).
+
+## Regra de Ouro da Continuidade no Atendimento
+
+_rule · Atendimento ao Cliente_
+
+O cliente nunca deve recomeçar um atendimento. A continuidade é garantida via: registro de protocolo único, definição de um dono para o caso, histórico compartilhado entre atendentes e encerramento com registro do que foi feito e o que ficou pendente.
+
+## Regra do Suporte Técnico Humanizado
+
+_rule · Suporte Técnico_
+
+Ao realizar resoluções técnicas rápidas e frias (ex: estornos), é obrigatório adicionar uma frase humana (contexto ou validação emocional) para evitar que o cliente se sinta tratado como um objeto transacional.
