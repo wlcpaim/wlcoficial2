@@ -28,19 +28,6 @@
       "content": "Sempre inicie sistemas como monolitos. Quando a complexidade aumentar (ex: tempo de deploy excessivo, acoplamento excessivo), primeiro modularize dentro do monolito através de interfaces explícitas. A separação física em microsserviços deve ser uma otimização organizacional para times grandes, não uma escolha técnica inicial."
     },
     {
-      "title": "Padronização de Camadas (Controller-Service-Repository)",
-      "kind": "pattern",
-      "category": "Arquitetura de Software",
-      "keywords": [
-        "camadas",
-        "controller",
-        "service",
-        "repository"
-      ],
-      "validation": "source_validated",
-      "content": "Separação em camadas para evitar espaguete: 1) Controller (HTTP/Entrada, sem regra de negócio); 2) Service (regra de negócio pura, agnóstica a infraestrutura); 3) Repository (acesso a dados, tradução entre domínio e persistência); 4) Model/Entity. Camadas vazias que apenas repassam dados devem ser eliminadas."
-    },
-    {
       "title": "Padrão Outbox para Eventos",
       "kind": "pattern",
       "category": "Sistemas Distribuídos",
@@ -100,6 +87,59 @@
       ],
       "validation": "source_validated",
       "content": "Documentação formal de decisões arquiteturais relevantes contendo: Status, Contexto, Decisão, Consequências e Alternativas consideradas. Serve como fonte da verdade histórica para evitar que decisões sejam esquecidas ou alteradas indevidamente no futuro."
+    },
+    {
+      "title": "Estratégia Trunk-Based Development",
+      "kind": "method",
+      "category": "Processo de Desenvolvimento",
+      "keywords": [
+        "git",
+        "trunk-based",
+        "devops",
+        "ci/cd",
+        "workflow"
+      ],
+      "validation": "confirmed",
+      "content": "Estratégia de controle de versão que prioriza branches curtas e merge frequente na branch principal (trunk). O objetivo é eliminar o 'merge hell' e garantir integração contínua, utilizando flags de funcionalidade (feature flags) para esconder código incompleto em produção, ao invés de manter branches de longa duração."
+    },
+    {
+      "title": "Brand Pattern (TypeScript)",
+      "kind": "pattern",
+      "category": "Tipagem",
+      "keywords": [
+        "typescript",
+        "tipagem",
+        "typesafe",
+        "brand-pattern"
+      ],
+      "validation": "confirmed",
+      "content": "Técnica de tipagem opaca que usa uma interseção de tipo com uma string literal única (o 'brand') para garantir que tipos primitivos (como strings ou numbers) sejam semanticamente distintos. Ex: `type ItemId = string & { __brand: 'ItemId' };`. Isso impede que variáveis de tipos diferentes (ex: um ID de produto e um ID de usuário) sejam trocadas acidentalmente."
+    },
+    {
+      "title": "Regra de Validação Autoritativa",
+      "kind": "rule",
+      "category": "Segurança",
+      "keywords": [
+        "segurança",
+        "backend",
+        "validação",
+        "frontend-hostil"
+      ],
+      "validation": "confirmed",
+      "content": "Todo dado vindo do frontend (cliente) é considerado hostil. Regras de negócio críticas (dinheiro, permissões, inventário) devem ser validadas exclusivamente no backend. O estado no frontend é meramente indicativo; a validação final e persistência dependem de um contrato de API rigoroso, tipicamente validado via esquemas (ex: Zod)."
+    },
+    {
+      "title": "Manutenção de Memória (Memory Leaks)",
+      "kind": "experience",
+      "category": "Performance",
+      "keywords": [
+        "performance",
+        "memory",
+        "heap",
+        "garbage-collector"
+      ],
+      "validation": "confirmed",
+      "content": "O gerenciamento de memória em ambientes como V8 (Node/Browser) requer evitar retenção desnecessária de referências. O uso de Memory Leaks através de listeners não removidos ou closures globais é a principal causa de degradação em apps long-running. O monitoramento deve incluir Heap Snapshots para identificar objetos que não são coletados pelo Garbage Collector."
     }
   ]
 }
