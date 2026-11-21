@@ -2,5 +2,104 @@
   "name": "Muito Conhecimento",
   "slug": "muito-conhecimento",
   "description": null,
-  "knowledge": []
+  "knowledge": [
+    {
+      "title": "Definição de Arquitetura de Software",
+      "kind": "concept",
+      "category": "Arquitetura de Software",
+      "keywords": [
+        "arquitetura",
+        "trade-off",
+        "requisitos não-funcionais"
+      ],
+      "validation": "source_validated",
+      "content": "Arquitetura de software é o conjunto de decisões estruturais que são caras de mudar, definem limites entre módulos e determinam os atributos de qualidade (como performance, escalabilidade e manutenibilidade) do sistema. Decisões arquiteturais envolvem trade-offs e devem atender a requisitos não-funcionais."
+    },
+    {
+      "title": "Regra da Modularização em Monolitos",
+      "kind": "rule",
+      "category": "Arquitetura de Software",
+      "keywords": [
+        "monolito",
+        "modularização",
+        "microsserviços"
+      ],
+      "validation": "source_validated",
+      "content": "Sempre inicie sistemas como monolitos. Quando a complexidade aumentar (ex: tempo de deploy excessivo, acoplamento excessivo), primeiro modularize dentro do monolito através de interfaces explícitas. A separação física em microsserviços deve ser uma otimização organizacional para times grandes, não uma escolha técnica inicial."
+    },
+    {
+      "title": "Padronização de Camadas (Controller-Service-Repository)",
+      "kind": "pattern",
+      "category": "Arquitetura de Software",
+      "keywords": [
+        "camadas",
+        "controller",
+        "service",
+        "repository"
+      ],
+      "validation": "source_validated",
+      "content": "Separação em camadas para evitar espaguete: 1) Controller (HTTP/Entrada, sem regra de negócio); 2) Service (regra de negócio pura, agnóstica a infraestrutura); 3) Repository (acesso a dados, tradução entre domínio e persistência); 4) Model/Entity. Camadas vazias que apenas repassam dados devem ser eliminadas."
+    },
+    {
+      "title": "Padrão Outbox para Eventos",
+      "kind": "pattern",
+      "category": "Sistemas Distribuídos",
+      "keywords": [
+        "outbox",
+        "consistência",
+        "eventos",
+        "mensageria"
+      ],
+      "validation": "source_validated",
+      "content": "Para garantir consistência entre uma operação de banco de dados e o disparo de um evento, o evento deve ser gravado em uma tabela 'outbox' na mesma transação que altera o registro principal. Um worker separado lê a tabela outbox e publica no broker de mensageria."
+    },
+    {
+      "title": "Idempotência em Sistemas de Mensageria",
+      "kind": "rule",
+      "category": "Sistemas Distribuídos",
+      "keywords": [
+        "idempotência",
+        "mensageria",
+        "eventos"
+      ],
+      "validation": "source_validated",
+      "content": "Como sistemas de filas podem entregar mensagens duplicadas, todo consumidor deve implementar idempotência, verificando em uma tabela de controle (ex: 'eventoProcessado') se a mensagem já foi tratada antes de executar a regra de negócio."
+    },
+    {
+      "title": "Estratégia de Cache-Aside e Invalidação",
+      "kind": "pattern",
+      "category": "Performance",
+      "keywords": [
+        "cache",
+        "cache-aside",
+        "performance"
+      ],
+      "validation": "source_validated",
+      "content": "O padrão Cache-Aside consiste em ler o cache antes do banco; se o dado não existir (miss), busca-se no banco e atualiza o cache. Toda escrita que modifica o dado original deve, obrigatoriamente, deletar ou atualizar a chave correspondente no cache para evitar inconsistência."
+    },
+    {
+      "title": "Circuit Breaker",
+      "kind": "pattern",
+      "category": "Resiliência",
+      "keywords": [
+        "resiliência",
+        "circuit breaker",
+        "tolerância a falhas"
+      ],
+      "validation": "source_validated",
+      "content": "Padrão de resiliência que evita chamadas recorrentes a um serviço externo em falha. O circuito alterna entre 'closed' (chamadas normais), 'open' (falha imediata sem tentar o serviço) e 'half-open' (tenta uma chamada de teste após certo período)."
+    },
+    {
+      "title": "ADR (Architecture Decision Record)",
+      "kind": "method",
+      "category": "Processos de Engenharia",
+      "keywords": [
+        "adr",
+        "documentação",
+        "decisão arquitetural"
+      ],
+      "validation": "source_validated",
+      "content": "Documentação formal de decisões arquiteturais relevantes contendo: Status, Contexto, Decisão, Consequências e Alternativas consideradas. Serve como fonte da verdade histórica para evitar que decisões sejam esquecidas ou alteradas indevidamente no futuro."
+    }
+  ]
 }
