@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 8
+Conhecimentos: 16
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -53,3 +53,51 @@ Protocolo para resolução de problemas: 1. Reproduzir bug consistentemente; 2. 
 _technique · Segurança_
 
 Alternativa segura ao 'git push --force'. Aborta o push caso alguém tenha enviado alterações para a branch remota desde o seu último fetch, evitando sobrescrever trabalho alheio.
+
+## Regra de Ouro da Escala
+
+_rule · Regra_
+
+A escala é um processo de resolução de gargalos estruturais em ordem fixa: 1. Banco de dados, 2. Falta de cache, 3. Processamento síncrono, 4. Assets, 5. Conexões, 6. Coordenação. Otimizar um estágio superior ignorando o gargalo atual é ineficaz (Lei de Amdahl).
+
+## Método dos 3 Sinais para Diagnóstico de Gargalos
+
+_method · Método_
+
+Diagnóstico de performance baseado em sintomas: CPU alta (algoritmo/serialização); Memória alta (cache local/vazamento); Latência alta + CPU baixa (I/O, rede, banco); Erro 'too many connections' (pool/queries lentas); Latência sobe com carga (gargalo de recurso); Latência constante/alta (API terceira).
+
+## Regra de Cursor Pagination
+
+_rule · Regra_
+
+Em datasets grandes, prefira 'cursor pagination' em vez de 'offset pagination'. O 'offset' exige que o banco conte todos os registros anteriores, degradando linearmente conforme o volume cresce. O cursor permite salto direto ao próximo conjunto de dados.
+
+## Fórmula de Pool de Conexões
+
+_formula · Fórmula_
+
+O dimensionamento de conexões de banco deve seguir: pool_size = (número_de_instâncias * workers_por_instância * 2) + margem. A soma total nunca deve exceder o limite máximo do banco de dados.
+
+## Padrão de Idempotência em Filas
+
+_pattern · Padrão_
+
+Todo job de fila é suscetível a duplicidade. É obrigatório implementar chave de idempotência utilizando um storage rápido (como Redis) para marcar um processo como 'concluído' antes de executar a lógica de negócio, prevenindo re-processamento.
+
+## Regra de Cache Busting
+
+_rule · Regra_
+
+Para assets, nunca utilize nomes estáticos se o conteúdo mudar. Use hashes no nome do arquivo (ex: image.hash.webp) e defina o header 'Cache-Control: public, max-age=31536000, immutable'. Isso garante que a CDN sirva a versão correta sem servir versões obsoletas.
+
+## Proteção Contra Cache Stampede
+
+_technique · Técnica_
+
+Quando uma chave de cache expira sob alta carga, múltiplos requests podem tentar recomputar o mesmo valor simultaneamente, sobrecarregando o banco. Soluções incluem: 1. 'Lock distribuído' (garante que apenas um processo compute); 2. 'Stale-while-revalidate' (serve a versão antiga enquanto um worker em background atualiza o cache).
+
+## Instrumentação de Queries de Banco
+
+_technique · Técnica_
+
+Toda query de negócio deve ser nomeada. Sem um nome único no código, é impossível rastrear a origem do gargalo nos dashboards de monitoramento. Utilize 'EXPLAIN ANALYZE' antes de enviar qualquer query nova para produção para identificar 'Seq Scan' em tabelas grandes.
