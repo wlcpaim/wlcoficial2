@@ -6,3 +6,5 @@
 - [ ] Import existing records and users (waiting on exports from the old backend)
 
 - [x] Conhecimento oficial permanente em código-fonte (catálogo, seed, menu, prompt)
+- [ ] Update CREDENTIALS_ENCRYPTION_KEY secret after remix
+- [ ] Settings: official WLC.IA repo picker + auto-commit motors to knowledge/motors/

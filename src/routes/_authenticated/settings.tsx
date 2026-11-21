@@ -4,7 +4,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { Github, Database, Loader2, CheckCircle2, XCircle, Trash2, KeyRound, Zap, Star } from "lucide-react";
 import { toast } from "sonner";
-import { saveGithubToken, testGithub, deleteConnection, addGeminiKey, setPrimaryKey } from "@/lib/connections.functions";
+import { saveGithubToken, testGithub, deleteConnection, addGeminiKey, setPrimaryKey, listKnowledgeRepos, setKnowledgeRepo } from "@/lib/connections.functions";
+import { syncAllMotors } from "@/lib/cognitive.functions";
 import { schemaStatus } from "@/lib/studio.functions";
 import { useConnections } from "@/lib/data";
 import { supabase } from "@/integrations/supabase/client";
@@ -50,6 +51,37 @@ function PermissionGuide() {
   );
 }
 
+
+function KnowledgeRepo({ current }: { current?: { full: string; branch: string } }) {
+  const qc = useQueryClient();
+  const list = useServerFn(listKnowledgeRepos);
+  const pick = useServerFn(setKnowledgeRepo);
+  const syncAll = useServerFn(syncAllMotors);
+  const repos = useQuery({ queryKey: ["knowledge-repos"], queryFn: () => list() });
+  const [sel, setSel] = useState(current?.full ?? "");
+  const [busy, setBusy] = useState<string | null>(null);
+  return (
+    <div className="space-y-2 rounded-md border p-3">
+      <p className="text-sm font-medium">Repositório oficial WLC.IA</p>
+      <p className="text-xs text-muted-foreground">Todo motor criado ou treinado é salvo automaticamente em <span className="font-mono">knowledge/motors/</span> deste repositório (memória eterna).</p>
+      {current && <p className="text-xs">Atual: <b className="font-mono">{current.full}</b> ({current.branch})</p>}
+      <div className="flex flex-col gap-2 sm:flex-row">
+        <select aria-label="Repositório oficial" className="h-10 flex-1 rounded-md border bg-background px-2 text-sm" value={sel} onChange={(e) => setSel(e.target.value)} disabled={repos.isLoading}>
+          <option value="">{repos.isLoading ? "Carregando repositórios…" : repos.isError ? "Erro ao listar repositórios" : "Escolha o repositório"}</option>
+          {(repos.data ?? []).map((r) => <option key={r.full} value={r.full}>{r.full}</option>)}
+        </select>
+        <Button disabled={!sel || busy !== null} onClick={async () => {
+          setBusy("p");
+          try { const r = await pick({ data: { full: sel } }); await qc.invalidateQueries({ queryKey: ["connections"] }); toast.success(`Repositório oficial: ${r.full}`); } catch (e) { toast.error((e as Error).message); } finally { setBusy(null); }
+        }}>{busy === "p" && <Loader2 className="h-4 w-4 animate-spin" />} Salvar repositório</Button>
+        {current && <Button variant="outline" disabled={busy !== null} onClick={async () => {
+          setBusy("s");
+          try { const r = await syncAll(); r.error && r.ok < r.total ? toast.error(`${r.ok}/${r.total} motores salvos: ${r.error}`) : toast.success(`${r.ok} motor(es) salvos no código-fonte`); } catch (e) { toast.error((e as Error).message); } finally { setBusy(null); }
+        }}>{busy === "s" && <Loader2 className="h-4 w-4 animate-spin" />} Salvar todos os motores agora</Button>}
+      </div>
+    </div>
+  );
+}
 
 function GithubAudit({ audit }: { audit: any }) {
   if (!audit || !Array.isArray(audit.checks)) return <p className="text-xs text-muted-foreground">Toque em Testar para auditar as permissões.</p>;
@@ -224,6 +256,7 @@ function Settings() {
             <div className="break-anywhere text-xs text-muted-foreground">Permissões: {scopesText((gh.metadata as any)?.scopes)} · testado {fmt(gh.last_tested_at)}</div>
             {gh.last_error && <div className="break-anywhere text-xs text-destructive">{gh.last_error}</div>}
             <GithubAudit audit={(gh.metadata as any)?.audit} />
+            <KnowledgeRepo current={(gh.metadata as any)?.knowledge_repo} />
             <div className="flex flex-wrap gap-2">
               <Button size="sm" variant="outline" disabled={busy === "t"} onClick={() => run("t", () => test(), (r) => r.ok ? `OK: ${r.login}` : `Falhou: ${r.error}`)}>{busy === "t" && <Loader2 className="h-4 w-4 animate-spin" />} Testar</Button>
               <Button size="sm" variant="ghost" onClick={() => confirm("Desconectar o GitHub?") && run("d", () => del({ data: { id: gh.id } }), () => "GitHub desconectado")}><Trash2 className="h-4 w-4" /> Desconectar</Button>
