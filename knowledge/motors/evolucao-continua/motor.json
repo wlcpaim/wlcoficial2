@@ -26,6 +26,18 @@
       ],
       "validation": "verified",
       "content": "Pedido: Continue a tarefa anterior de onde parou. Primeiro confira o que já foi gravado no repositório e não repita o que já está pronto.\nEstrutura de pastas usada: js/pages\nArquivos criados/alterados (1): js/pages/checkout.js\nTipos de arquivo: js\nExecução sem erros de ferramenta."
+    },
+    {
+      "title": "Projeto: Presetlojavirtual",
+      "kind": "concept",
+      "category": "projeto",
+      "keywords": [
+        "js",
+        "core",
+        "pages"
+      ],
+      "validation": "verified",
+      "content": "Pedido: Continue a tarefa anterior de onde parou. Primeiro confira o que já foi gravado no repositório e não repita o que já está pronto.\nEstrutura de pastas usada: js/core, js/pages\nArquivos criados/alterados (2): js/core/router.js, js/pages/orders.js\nTipos de arquivo: js\nExecução sem erros de ferramenta."
     }
   ]
 }
