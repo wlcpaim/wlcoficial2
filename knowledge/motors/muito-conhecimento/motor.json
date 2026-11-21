@@ -142,19 +142,42 @@
       "content": "O gerenciamento de memória em ambientes como V8 (Node/Browser) requer evitar retenção desnecessária de referências. O uso de Memory Leaks através de listeners não removidos ou closures globais é a principal causa de degradação em apps long-running. O monitoramento deve incluir Heap Snapshots para identificar objetos que não são coletados pelo Garbage Collector."
     },
     {
-      "title": "Base de Conhecimento Geral Unificada (Níveis 1 a 10)",
-      "kind": "architecture",
-      "category": "Arquitetura Educacional",
+      "title": "Currículo Universal de Conhecimento",
+      "kind": "method",
+      "category": "Educação",
       "keywords": [
-        "base de conhecimento geral unificada",
-        "regra de navegação",
-        "regra de honestidade",
-        "regra de conexão",
+        "currículo",
+        "educação",
+        "mapeamento",
         "bncc",
         "capes"
       ],
       "validation": "source_validated",
-      "content": "Mapa estrutural que organiza o conhecimento formal em 10 níveis de complexidade, desde a Educação Infantil até a Pós-Graduação (Lato e Stricto Sensu). A estrutura utiliza a 'Regra de Navegação' (identificação do nível e calibração de profundidade), 'Regra de Honestidade' (foco em estrutura/ementa e priorização de tópicos) e 'Regra de Conexão' (interdisciplinaridade)."
+      "content": "Mapa estrutural que organiza o conhecimento formal (Educação Básica ao Mestrado/Doutorado) para orientar a profundidade e a abrangência de respostas de IA. Baseia-se na identificação de nível, matéria e estágio de progressão acadêmica."
+    },
+    {
+      "title": "Regra de Calibração Dinâmica",
+      "kind": "rule",
+      "category": "Cognição de IA",
+      "keywords": [
+        "calibração",
+        "nível educacional",
+        "adaptação"
+      ],
+      "validation": "source_validated",
+      "content": "Protocolo para ajustar a densidade técnica e a complexidade de uma resposta de acordo com o nível educacional identificado na consulta do usuário, evitando simplificação excessiva ou excesso de rigor técnico fora de contexto."
+    },
+    {
+      "title": "Regra de Conexão Interdisciplinar",
+      "kind": "rule",
+      "category": "Cognição de IA",
+      "keywords": [
+        "interdisciplinaridade",
+        "conexão",
+        "síntese"
+      ],
+      "validation": "source_validated",
+      "content": "Princípio de síntese que busca relacionar um conceito central através de diferentes disciplinas (ex: História, Geografia, Literatura) para demonstrar domínio sistêmico do conhecimento, em vez de fornecer listas de conteúdos isolados."
     }
   ]
 }
