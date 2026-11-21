@@ -500,6 +500,72 @@
       ],
       "validation": "source_validated",
       "content": "Protocolo de validação de resposta composto por 4 perguntas prévias: 1. Onde estou? (Estágio adequado); 2. O que a pessoa quer de mim? (Ação, validação, presença, etc.); 3. O que é o mínimo suficiente?; 4. Isso é proporcional? (A resposta condiz com a maturidade do interlocutor?)."
+    },
+    {
+      "title": "Protocolo de Operação de Código",
+      "kind": "method",
+      "category": "Engenharia de Software",
+      "keywords": [
+        "github",
+        "git",
+        "engenharia de software",
+        "conventional commits",
+        "ci/cd",
+        "pull request"
+      ],
+      "validation": "source_validated",
+      "content": "Framework completo para gestão de ciclo de vida de software utilizando GitHub, compreendendo: fluxo de trabalho profissional (Branch -> Commit -> Push -> PR), padronização de histórico (Conventional Commits), arquitetura de repositórios, automação (GitHub Actions), debug metódico (6 passos: reprodução, isolamento, leitura de diff, branch de fix, TDD, correção) e checklists de qualidade para cada etapa do desenvolvimento."
+    },
+    {
+      "title": "Regra da Nomenclatura de Branch",
+      "kind": "rule",
+      "category": "Engenharia de Software",
+      "keywords": [
+        "git",
+        "branch",
+        "padronização",
+        "workflow"
+      ],
+      "validation": "source_validated",
+      "content": "Padronização obrigatória de prefixos para branches de trabalho para garantir rastreabilidade: 'feat/' para novas funcionalidades, 'fix/' para bugs, 'refactor/' para melhoria de código, 'docs/' para documentação e 'chore/' para manutenção/configuração."
+    },
+    {
+      "title": "Protocolo de Debug Profissional (6 Passos)",
+      "kind": "method",
+      "category": "Engenharia de Software",
+      "keywords": [
+        "debug",
+        "git bisect",
+        "tdd",
+        "correção de bugs"
+      ],
+      "validation": "source_validated",
+      "content": "Método disciplinado para resolução de bugs: 1. Reproduzir consistentemente; 2. Isolar causa raiz (ex: via git bisect); 3. Ler o diff do commit culpado; 4. Criar branch isolada; 5. Escrever teste que reproduz a falha antes da correção (TDD); 6. Corrigir e aplicar via PR."
+    },
+    {
+      "title": "Conventional Commits",
+      "kind": "pattern",
+      "category": "Engenharia de Software",
+      "keywords": [
+        "commits",
+        "histórico",
+        "padrão"
+      ],
+      "validation": "confirmed",
+      "content": "Padrão de escrita de mensagens de commit para garantir histórico legível e auditável. Formato: <tipo>(<escopo>): <descrição no imperativo>. Tipos: feat, fix, refactor, docs, chore, style, test, perf, ci, revert."
+    },
+    {
+      "title": "Regra da Segurança de Segredos (.env)",
+      "kind": "rule",
+      "category": "Engenharia de Software",
+      "keywords": [
+        "segurança",
+        "git",
+        ".gitignore",
+        "senhas"
+      ],
+      "validation": "source_validated",
+      "content": "Regra de segurança crítica: jamais commitar arquivos de configuração sensível (.env, chaves de API, credenciais). Deve-se configurar o .gitignore antes do primeiro commit. Se vazado, revogar a chave imediatamente e remover o arquivo do histórico Git via 'git filter-repo'."
     }
   ]
 }
