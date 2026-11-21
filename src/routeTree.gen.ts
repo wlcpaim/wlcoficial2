@@ -10,33 +10,330 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as AuthenticatedApisRouteImport } from './routes/_authenticated/apis'
+import { Route as AuthenticatedAuditRouteImport } from './routes/_authenticated/audit'
+import { Route as AuthenticatedCheckpointsRouteImport } from './routes/_authenticated/checkpoints'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDebuggerRouteImport } from './routes/_authenticated/debugger'
+import { Route as AuthenticatedHistoryRouteImport } from './routes/_authenticated/history'
+import { Route as AuthenticatedLiveRouteImport } from './routes/_authenticated/live'
+import { Route as AuthenticatedMemoryRouteImport } from './routes/_authenticated/memory'
+import { Route as AuthenticatedNexusRouteImport } from './routes/_authenticated/nexus'
+import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
+import { Route as AuthenticatedReposRouteImport } from './routes/_authenticated/repos'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
+import { Route as AuthenticatedTestsRouteImport } from './routes/_authenticated/tests'
+import { Route as RSlugRouteImport } from './routes/r.$slug'
+import { Route as AuthenticatedChatIndexRouteImport } from './routes/_authenticated/chat.index'
+import { Route as AuthenticatedChatIdRouteImport } from './routes/_authenticated/chat.$id'
+import { Route as AuthenticatedCognitiveIndexRouteImport } from './routes/_authenticated/cognitive.index'
+import { Route as AuthenticatedCognitiveMotorIdIndexRouteImport } from './routes/_authenticated/cognitive.$motorId.index'
+import { Route as AuthenticatedCognitiveMotorIdCConversationIdRouteImport } from './routes/_authenticated/cognitive.$motorId.c.$conversationId'
+import { Route as ApiPublicSiteDbSiteCollectionRouteImport } from './routes/api/public/site-db/$site.$collection'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedApisRoute = AuthenticatedApisRouteImport.update({
+  id: '/apis',
+  path: '/apis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAuditRoute = AuthenticatedAuditRouteImport.update({
+  id: '/audit',
+  path: '/audit',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCheckpointsRoute =
+  AuthenticatedCheckpointsRouteImport.update({
+    id: '/checkpoints',
+    path: '/checkpoints',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDebuggerRoute = AuthenticatedDebuggerRouteImport.update({
+  id: '/debugger',
+  path: '/debugger',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedHistoryRoute = AuthenticatedHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedLiveRoute = AuthenticatedLiveRouteImport.update({
+  id: '/live',
+  path: '/live',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMemoryRoute = AuthenticatedMemoryRouteImport.update({
+  id: '/memory',
+  path: '/memory',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedNexusRoute = AuthenticatedNexusRouteImport.update({
+  id: '/nexus',
+  path: '/nexus',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedReposRoute = AuthenticatedReposRouteImport.update({
+  id: '/repos',
+  path: '/repos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTestsRoute = AuthenticatedTestsRouteImport.update({
+  id: '/tests',
+  path: '/tests',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const RSlugRoute = RSlugRouteImport.update({
+  id: '/r/$slug',
+  path: '/r/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedChatIndexRoute = AuthenticatedChatIndexRouteImport.update({
+  id: '/chat/',
+  path: '/chat/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedChatIdRoute = AuthenticatedChatIdRouteImport.update({
+  id: '/chat/$id',
+  path: '/chat/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCognitiveIndexRoute =
+  AuthenticatedCognitiveIndexRouteImport.update({
+    id: '/cognitive/',
+    path: '/cognitive/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCognitiveMotorIdIndexRoute =
+  AuthenticatedCognitiveMotorIdIndexRouteImport.update({
+    id: '/cognitive/$motorId/',
+    path: '/cognitive/$motorId/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCognitiveMotorIdCConversationIdRoute =
+  AuthenticatedCognitiveMotorIdCConversationIdRouteImport.update({
+    id: '/cognitive/$motorId/c/$conversationId',
+    path: '/cognitive/$motorId/c/$conversationId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiPublicSiteDbSiteCollectionRoute =
+  ApiPublicSiteDbSiteCollectionRouteImport.update({
+    id: '/api/public/site-db/$site/$collection',
+    path: '/api/public/site-db/$site/$collection',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/apis': typeof AuthenticatedApisRoute
+  '/audit': typeof AuthenticatedAuditRoute
+  '/checkpoints': typeof AuthenticatedCheckpointsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/debugger': typeof AuthenticatedDebuggerRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/live': typeof AuthenticatedLiveRoute
+  '/memory': typeof AuthenticatedMemoryRoute
+  '/nexus': typeof AuthenticatedNexusRoute
+  '/projects': typeof AuthenticatedProjectsRoute
+  '/repos': typeof AuthenticatedReposRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/tasks': typeof AuthenticatedTasksRoute
+  '/tests': typeof AuthenticatedTestsRoute
+  '/r/$slug': typeof RSlugRoute
+  '/chat/$id': typeof AuthenticatedChatIdRoute
+  '/chat/': typeof AuthenticatedChatIndexRoute
+  '/cognitive/': typeof AuthenticatedCognitiveIndexRoute
+  '/cognitive/$motorId/': typeof AuthenticatedCognitiveMotorIdIndexRoute
+  '/cognitive/$motorId/c/$conversationId': typeof AuthenticatedCognitiveMotorIdCConversationIdRoute
+  '/api/public/site-db/$site/$collection': typeof ApiPublicSiteDbSiteCollectionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/apis': typeof AuthenticatedApisRoute
+  '/audit': typeof AuthenticatedAuditRoute
+  '/checkpoints': typeof AuthenticatedCheckpointsRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/debugger': typeof AuthenticatedDebuggerRoute
+  '/history': typeof AuthenticatedHistoryRoute
+  '/live': typeof AuthenticatedLiveRoute
+  '/memory': typeof AuthenticatedMemoryRoute
+  '/nexus': typeof AuthenticatedNexusRoute
+  '/projects': typeof AuthenticatedProjectsRoute
+  '/repos': typeof AuthenticatedReposRoute
+  '/settings': typeof AuthenticatedSettingsRoute
+  '/tasks': typeof AuthenticatedTasksRoute
+  '/tests': typeof AuthenticatedTestsRoute
+  '/r/$slug': typeof RSlugRoute
+  '/chat/$id': typeof AuthenticatedChatIdRoute
+  '/chat': typeof AuthenticatedChatIndexRoute
+  '/cognitive': typeof AuthenticatedCognitiveIndexRoute
+  '/cognitive/$motorId': typeof AuthenticatedCognitiveMotorIdIndexRoute
+  '/cognitive/$motorId/c/$conversationId': typeof AuthenticatedCognitiveMotorIdCConversationIdRoute
+  '/api/public/site-db/$site/$collection': typeof ApiPublicSiteDbSiteCollectionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/_authenticated/apis': typeof AuthenticatedApisRoute
+  '/_authenticated/audit': typeof AuthenticatedAuditRoute
+  '/_authenticated/checkpoints': typeof AuthenticatedCheckpointsRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/debugger': typeof AuthenticatedDebuggerRoute
+  '/_authenticated/history': typeof AuthenticatedHistoryRoute
+  '/_authenticated/live': typeof AuthenticatedLiveRoute
+  '/_authenticated/memory': typeof AuthenticatedMemoryRoute
+  '/_authenticated/nexus': typeof AuthenticatedNexusRoute
+  '/_authenticated/projects': typeof AuthenticatedProjectsRoute
+  '/_authenticated/repos': typeof AuthenticatedReposRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
+  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/tests': typeof AuthenticatedTestsRoute
+  '/r/$slug': typeof RSlugRoute
+  '/_authenticated/chat/$id': typeof AuthenticatedChatIdRoute
+  '/_authenticated/chat/': typeof AuthenticatedChatIndexRoute
+  '/_authenticated/cognitive/': typeof AuthenticatedCognitiveIndexRoute
+  '/_authenticated/cognitive/$motorId/': typeof AuthenticatedCognitiveMotorIdIndexRoute
+  '/_authenticated/cognitive/$motorId/c/$conversationId': typeof AuthenticatedCognitiveMotorIdCConversationIdRoute
+  '/api/public/site-db/$site/$collection': typeof ApiPublicSiteDbSiteCollectionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/apis'
+    | '/audit'
+    | '/checkpoints'
+    | '/dashboard'
+    | '/debugger'
+    | '/history'
+    | '/live'
+    | '/memory'
+    | '/nexus'
+    | '/projects'
+    | '/repos'
+    | '/settings'
+    | '/tasks'
+    | '/tests'
+    | '/r/$slug'
+    | '/chat/$id'
+    | '/chat/'
+    | '/cognitive/'
+    | '/cognitive/$motorId/'
+    | '/cognitive/$motorId/c/$conversationId'
+    | '/api/public/site-db/$site/$collection'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/apis'
+    | '/audit'
+    | '/checkpoints'
+    | '/dashboard'
+    | '/debugger'
+    | '/history'
+    | '/live'
+    | '/memory'
+    | '/nexus'
+    | '/projects'
+    | '/repos'
+    | '/settings'
+    | '/tasks'
+    | '/tests'
+    | '/r/$slug'
+    | '/chat/$id'
+    | '/chat'
+    | '/cognitive'
+    | '/cognitive/$motorId'
+    | '/cognitive/$motorId/c/$conversationId'
+    | '/api/public/site-db/$site/$collection'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/reset-password'
+    | '/_authenticated/apis'
+    | '/_authenticated/audit'
+    | '/_authenticated/checkpoints'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/debugger'
+    | '/_authenticated/history'
+    | '/_authenticated/live'
+    | '/_authenticated/memory'
+    | '/_authenticated/nexus'
+    | '/_authenticated/projects'
+    | '/_authenticated/repos'
+    | '/_authenticated/settings'
+    | '/_authenticated/tasks'
+    | '/_authenticated/tests'
+    | '/r/$slug'
+    | '/_authenticated/chat/$id'
+    | '/_authenticated/chat/'
+    | '/_authenticated/cognitive/'
+    | '/_authenticated/cognitive/$motorId/'
+    | '/_authenticated/cognitive/$motorId/c/$conversationId'
+    | '/api/public/site-db/$site/$collection'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  RSlugRoute: typeof RSlugRoute
+  ApiPublicSiteDbSiteCollectionRoute: typeof ApiPublicSiteDbSiteCollectionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +345,233 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/apis': {
+      id: '/_authenticated/apis'
+      path: '/apis'
+      fullPath: '/apis'
+      preLoaderRoute: typeof AuthenticatedApisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/audit': {
+      id: '/_authenticated/audit'
+      path: '/audit'
+      fullPath: '/audit'
+      preLoaderRoute: typeof AuthenticatedAuditRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/checkpoints': {
+      id: '/_authenticated/checkpoints'
+      path: '/checkpoints'
+      fullPath: '/checkpoints'
+      preLoaderRoute: typeof AuthenticatedCheckpointsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/debugger': {
+      id: '/_authenticated/debugger'
+      path: '/debugger'
+      fullPath: '/debugger'
+      preLoaderRoute: typeof AuthenticatedDebuggerRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/history': {
+      id: '/_authenticated/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof AuthenticatedHistoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/live': {
+      id: '/_authenticated/live'
+      path: '/live'
+      fullPath: '/live'
+      preLoaderRoute: typeof AuthenticatedLiveRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/memory': {
+      id: '/_authenticated/memory'
+      path: '/memory'
+      fullPath: '/memory'
+      preLoaderRoute: typeof AuthenticatedMemoryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/nexus': {
+      id: '/_authenticated/nexus'
+      path: '/nexus'
+      fullPath: '/nexus'
+      preLoaderRoute: typeof AuthenticatedNexusRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/projects': {
+      id: '/_authenticated/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AuthenticatedProjectsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/repos': {
+      id: '/_authenticated/repos'
+      path: '/repos'
+      fullPath: '/repos'
+      preLoaderRoute: typeof AuthenticatedReposRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tasks': {
+      id: '/_authenticated/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tests': {
+      id: '/_authenticated/tests'
+      path: '/tests'
+      fullPath: '/tests'
+      preLoaderRoute: typeof AuthenticatedTestsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/r/$slug': {
+      id: '/r/$slug'
+      path: '/r/$slug'
+      fullPath: '/r/$slug'
+      preLoaderRoute: typeof RSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/chat/': {
+      id: '/_authenticated/chat/'
+      path: '/chat'
+      fullPath: '/chat/'
+      preLoaderRoute: typeof AuthenticatedChatIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chat/$id': {
+      id: '/_authenticated/chat/$id'
+      path: '/chat/$id'
+      fullPath: '/chat/$id'
+      preLoaderRoute: typeof AuthenticatedChatIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/cognitive/': {
+      id: '/_authenticated/cognitive/'
+      path: '/cognitive'
+      fullPath: '/cognitive/'
+      preLoaderRoute: typeof AuthenticatedCognitiveIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/cognitive/$motorId/': {
+      id: '/_authenticated/cognitive/$motorId/'
+      path: '/cognitive/$motorId'
+      fullPath: '/cognitive/$motorId/'
+      preLoaderRoute: typeof AuthenticatedCognitiveMotorIdIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/cognitive/$motorId/c/$conversationId': {
+      id: '/_authenticated/cognitive/$motorId/c/$conversationId'
+      path: '/cognitive/$motorId/c/$conversationId'
+      fullPath: '/cognitive/$motorId/c/$conversationId'
+      preLoaderRoute: typeof AuthenticatedCognitiveMotorIdCConversationIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/site-db/$site/$collection': {
+      id: '/api/public/site-db/$site/$collection'
+      path: '/api/public/site-db/$site/$collection'
+      fullPath: '/api/public/site-db/$site/$collection'
+      preLoaderRoute: typeof ApiPublicSiteDbSiteCollectionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedApisRoute: typeof AuthenticatedApisRoute
+  AuthenticatedAuditRoute: typeof AuthenticatedAuditRoute
+  AuthenticatedCheckpointsRoute: typeof AuthenticatedCheckpointsRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDebuggerRoute: typeof AuthenticatedDebuggerRoute
+  AuthenticatedHistoryRoute: typeof AuthenticatedHistoryRoute
+  AuthenticatedLiveRoute: typeof AuthenticatedLiveRoute
+  AuthenticatedMemoryRoute: typeof AuthenticatedMemoryRoute
+  AuthenticatedNexusRoute: typeof AuthenticatedNexusRoute
+  AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
+  AuthenticatedReposRoute: typeof AuthenticatedReposRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
+  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
+  AuthenticatedTestsRoute: typeof AuthenticatedTestsRoute
+  AuthenticatedChatIdRoute: typeof AuthenticatedChatIdRoute
+  AuthenticatedChatIndexRoute: typeof AuthenticatedChatIndexRoute
+  AuthenticatedCognitiveIndexRoute: typeof AuthenticatedCognitiveIndexRoute
+  AuthenticatedCognitiveMotorIdIndexRoute: typeof AuthenticatedCognitiveMotorIdIndexRoute
+  AuthenticatedCognitiveMotorIdCConversationIdRoute: typeof AuthenticatedCognitiveMotorIdCConversationIdRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedApisRoute: AuthenticatedApisRoute,
+  AuthenticatedAuditRoute: AuthenticatedAuditRoute,
+  AuthenticatedCheckpointsRoute: AuthenticatedCheckpointsRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDebuggerRoute: AuthenticatedDebuggerRoute,
+  AuthenticatedHistoryRoute: AuthenticatedHistoryRoute,
+  AuthenticatedLiveRoute: AuthenticatedLiveRoute,
+  AuthenticatedMemoryRoute: AuthenticatedMemoryRoute,
+  AuthenticatedNexusRoute: AuthenticatedNexusRoute,
+  AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
+  AuthenticatedReposRoute: AuthenticatedReposRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
+  AuthenticatedTasksRoute: AuthenticatedTasksRoute,
+  AuthenticatedTestsRoute: AuthenticatedTestsRoute,
+  AuthenticatedChatIdRoute: AuthenticatedChatIdRoute,
+  AuthenticatedChatIndexRoute: AuthenticatedChatIndexRoute,
+  AuthenticatedCognitiveIndexRoute: AuthenticatedCognitiveIndexRoute,
+  AuthenticatedCognitiveMotorIdIndexRoute:
+    AuthenticatedCognitiveMotorIdIndexRoute,
+  AuthenticatedCognitiveMotorIdCConversationIdRoute:
+    AuthenticatedCognitiveMotorIdCConversationIdRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  RSlugRoute: RSlugRoute,
+  ApiPublicSiteDbSiteCollectionRoute: ApiPublicSiteDbSiteCollectionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

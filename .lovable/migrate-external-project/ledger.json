@@ -1,0 +1,22 @@
+{
+  "source": "code archive wlcia-main_2.zip (WLC.IA studio, TanStack Start + Lovable Cloud backend, no migrations or record exports included)",
+  "capabilities": [
+    {"capability": "application code (routes, components, lib, tests, runtime, presets, knowledge, docs)", "source": "src/, runtime/, presets/, knowledge/, docs/, *.md", "outcome": "migrate", "status": "pending", "next_action": "copy into project, merge dependencies keeping pinned TanStack versions"},
+    {"capability": "database schema (tables, RPCs, RLS, grants, triggers)", "source": "src/integrations/supabase/types.ts + AGENTS.md rules + RPC call sites (no migrations in archive)", "outcome": "migrate", "status": "pending", "next_action": "rebuild schema in Lovable Cloud"},
+    {"capability": "records", "source": "old backend (no export attached)", "outcome": "migrate", "status": "pending", "next_action": "request per-table CSV/JSON export after preview"},
+    {"capability": "auth identities", "source": "old backend auth users (no export attached)", "outcome": "migrate", "status": "pending", "next_action": "request users export (id, email) after preview"},
+    {"capability": "auth methods (email/password, Google, password reset)", "source": "src/routes/auth.tsx, reset-password.tsx, src/integrations/lovable", "outcome": "migrate", "status": "pending", "next_action": "enable Cloud auth + Google"},
+    {"capability": "authorization (user_id = auth.uid(), owns_project)", "source": "AGENTS.md rules", "outcome": "migrate", "status": "pending", "next_action": "RLS policies in schema migration"},
+    {"capability": "realtime agent_events", "source": "chat.$id.tsx", "outcome": "migrate", "status": "pending", "next_action": "add agent_events to realtime publication"},
+    {"capability": "AI provider (Lovable AI gateway + user keys)", "source": "src/lib/ai.server.ts", "outcome": "preserve", "status": "pending", "next_action": "keep code; LOVABLE_API_KEY provided by Cloud"},
+    {"capability": "CREDENTIALS_ENCRYPTION_KEY secret", "source": "src/lib/crypto.server.ts", "outcome": "migrate", "status": "pending", "next_action": "generate new key; old encrypted keys cannot be decrypted, users re-add them"},
+    {"capability": "GitHub API integration (user tokens)", "source": "src/lib/github.*", "outcome": "preserve", "status": "pending", "next_action": "users re-add GitHub tokens in Settings"},
+    {"capability": "public endpoint /api/public/site-db/$site/$collection", "source": "src/routes/api/public", "outcome": "preserve", "status": "pending", "next_action": "copy unchanged"},
+    {"capability": "published sites /r/$slug via get_published_site", "source": "src/routes/r.$slug.tsx", "outcome": "preserve", "status": "pending", "next_action": "recreate RPC callable by visitors"},
+    {"capability": "external Docker runner (WLC_RUNNER_URL/TOKEN) and worker (runtime/)", "source": "runtime/*.mjs, remote-runner-adapter.ts", "outcome": "preserve", "status": "pending", "next_action": "optional; needs user's own runner URL/token"},
+    {"capability": "schedules/cron", "source": "cron-auth.ts generated only", "outcome": "none", "status": "pending", "next_action": "confirm none used"},
+    {"capability": "file storage", "source": "-", "outcome": "none", "status": "pending", "next_action": "confirm none used"},
+    {"capability": "cutover", "source": "-", "outcome": "migrate", "status": "pending", "next_action": "users re-add keys/tokens; publish when ready"},
+    {"capability": "verification", "source": "-", "outcome": "migrate", "status": "pending", "next_action": "build, tests, signed-in flows"}
+  ]
+}
