@@ -188,7 +188,17 @@ export async function getTree(token: string, full: string, sha: string) {
   return { items: data.tree.map(({ path, type, size, sha }) => ({ path, type, size, sha })), truncated: data.truncated };
 }
 
+// Recent writes: GitHub's contents API can briefly serve stale/404 reads right
+// after a PUT, so reads within the window return what we just wrote.
+const recentWrites = new Map<string, { sha: string; content: string; at: number }>();
+const WRITE_CACHE_MS = 90_000;
+const wkey = (full: string, path: string, ref?: string) => `${full}|${ref ?? ""}|${path.replace(/^\/+/, "")}`;
+
 export async function getFile(token: string, full: string, path: string, ref?: string) {
+  const cached = recentWrites.get(wkey(full, path, ref));
+  if (cached && Date.now() - cached.at < WRITE_CACHE_MS) {
+    return { path, sha: cached.sha, size: cached.content.length, content: cached.content };
+  }
   try {
     const q = ref ? `?ref=${encodeURIComponent(ref)}` : "";
     const { data } = await gh<{ type: string; content?: string; encoding?: string; sha: string; size: number }>(
@@ -206,6 +216,30 @@ export async function getFile(token: string, full: string, path: string, ref?: s
 }
 
 export async function putFile(
+  token: string,
+  full: string,
+  input: { path: string; content: string; message: string; branch: string; sha?: string },
+) {
+  try {
+    const r = await putFileOnce(token, full, input);
+    recentWrites.set(wkey(full, input.path, input.branch), { sha: r.blobSha, content: input.content, at: Date.now() });
+    return r;
+  } catch (e) {
+    // 422 "sha wasn't supplied" / 409 sha mismatch: refetch the live sha and retry once.
+    if (e instanceof GitHubError && (e.status === 409 || e.status === 422)) {
+      recentWrites.delete(wkey(full, input.path, input.branch));
+      const cur = await getFile(token, full, input.path, input.branch).catch(() => null);
+      if (cur?.sha && cur.sha !== input.sha) {
+        const r = await putFileOnce(token, full, { ...input, sha: cur.sha });
+        recentWrites.set(wkey(full, input.path, input.branch), { sha: r.blobSha, content: input.content, at: Date.now() });
+        return r;
+      }
+    }
+    throw e;
+  }
+}
+
+async function putFileOnce(
   token: string,
   full: string,
   input: { path: string; content: string; message: string; branch: string; sha?: string },

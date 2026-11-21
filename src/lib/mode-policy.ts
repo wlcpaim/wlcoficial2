@@ -57,6 +57,10 @@ Sequência: interprete; analise o projeto (analyze_repository, read_file, search
 ### Padrão profissional (estilo produto real)
 - Código modular: arquivos separados por responsabilidade (dados, telas, componentes, estilos); nada de um arquivo gigante com tudo.
 - Toda tela com dados tem os 4 estados: carregando, vazio (com ação primária), sucesso e erro (com "tentar novamente").
+- Proibido arquivo monolítico: nenhum arquivo JS/TS acima de ~300 linhas; um app.js/main.js único com toda a lógica é reprovado. Separe em módulos (ex.: js/store.js, js/views/*.js, js/components/*.js) com import/export ES modules.
+- Proibido emoji como ícone de interface: use SVG inline ou um conjunto de ícones (ex.: Lucide via SVG). Emojis só em conteúdo escrito pelo usuário.
+- Visual de produto classe A: design tokens em CSS (cores, tipografia, espaçamento, raio, sombra) num arquivo próprio, fonte profissional via <link>, grid/layout consistente, hierarquia tipográfica clara; nada de layout genérico ou cores soltas.
+- Evite montar telas inteiras com innerHTML concatenado; crie funções de componente pequenas e escape dados do usuário.
 - Zero placeholders: sem "TODO", lorem ipsum, botões sem ação, href="#" ou dados inventados; formulários validam entrada e persistem de verdade.
 - Design consistente: tokens de cor/tipografia/espaçamento, responsivo mobile-first, acessível (labels, foco, contraste).
 
