@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 8
+Conhecimentos: 11
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -17,12 +17,6 @@ Arquitetura de software é o conjunto de decisões estruturais que são caras de
 _rule · Arquitetura de Software_
 
 Sempre inicie sistemas como monolitos. Quando a complexidade aumentar (ex: tempo de deploy excessivo, acoplamento excessivo), primeiro modularize dentro do monolito através de interfaces explícitas. A separação física em microsserviços deve ser uma otimização organizacional para times grandes, não uma escolha técnica inicial.
-
-## Padronização de Camadas (Controller-Service-Repository)
-
-_pattern · Arquitetura de Software_
-
-Separação em camadas para evitar espaguete: 1) Controller (HTTP/Entrada, sem regra de negócio); 2) Service (regra de negócio pura, agnóstica a infraestrutura); 3) Repository (acesso a dados, tradução entre domínio e persistência); 4) Model/Entity. Camadas vazias que apenas repassam dados devem ser eliminadas.
 
 ## Padrão Outbox para Eventos
 
@@ -53,3 +47,27 @@ Padrão de resiliência que evita chamadas recorrentes a um serviço externo em 
 _method · Processos de Engenharia_
 
 Documentação formal de decisões arquiteturais relevantes contendo: Status, Contexto, Decisão, Consequências e Alternativas consideradas. Serve como fonte da verdade histórica para evitar que decisões sejam esquecidas ou alteradas indevidamente no futuro.
+
+## Estratégia Trunk-Based Development
+
+_method · Processo de Desenvolvimento_
+
+Estratégia de controle de versão que prioriza branches curtas e merge frequente na branch principal (trunk). O objetivo é eliminar o 'merge hell' e garantir integração contínua, utilizando flags de funcionalidade (feature flags) para esconder código incompleto em produção, ao invés de manter branches de longa duração.
+
+## Brand Pattern (TypeScript)
+
+_pattern · Tipagem_
+
+Técnica de tipagem opaca que usa uma interseção de tipo com uma string literal única (o 'brand') para garantir que tipos primitivos (como strings ou numbers) sejam semanticamente distintos. Ex: `type ItemId = string & { __brand: 'ItemId' };`. Isso impede que variáveis de tipos diferentes (ex: um ID de produto e um ID de usuário) sejam trocadas acidentalmente.
+
+## Regra de Validação Autoritativa
+
+_rule · Segurança_
+
+Todo dado vindo do frontend (cliente) é considerado hostil. Regras de negócio críticas (dinheiro, permissões, inventário) devem ser validadas exclusivamente no backend. O estado no frontend é meramente indicativo; a validação final e persistência dependem de um contrato de API rigoroso, tipicamente validado via esquemas (ex: Zod).
+
+## Manutenção de Memória (Memory Leaks)
+
+_experience · Performance_
+
+O gerenciamento de memória em ambientes como V8 (Node/Browser) requer evitar retenção desnecessária de referências. O uso de Memory Leaks através de listeners não removidos ou closures globais é a principal causa de degradação em apps long-running. O monitoramento deve incluir Heap Snapshots para identificar objetos que não são coletados pelo Garbage Collector.
