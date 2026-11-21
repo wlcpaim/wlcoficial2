@@ -68,14 +68,15 @@ const IGNORE = /(^|\/)(node_modules|\.git|dist|build|\.next|coverage|vendor)\//;
 
 
 /** Learned Cognitive Chat knowledge (active, user's global + recent) injected into every dev-chat run. Never fails the run. */
-async function loadLearnedKnowledge(db: DB, userId: string, query: string): Promise<string> {
+async function loadLearnedKnowledge(db: DB, userId: string, query: string, mode: ChatMode = "chat"): Promise<string> {
+  const build = mode !== "chat";
   try {
     const anyDb = db as any;
-    const { data: motors } = await anyDb.from("cognitive_motors").select("id").eq("user_id", userId).limit(20);
+    const { data: motors } = await anyDb.from("cognitive_motors").select("id").eq("user_id", userId).limit(30);
     const seen = new Set<string>(); const rows: any[] = [];
     const add = (list: any[] | null) => { for (const r of list ?? []) if (r?.id && !seen.has(r.id)) { seen.add(r.id); rows.push(r); } };
-    if (query.trim()) for (const m of (motors ?? []).slice(0, 5)) {
-      const { data } = await anyDb.rpc("search_cognitive_knowledge", { _motor_id: m.id, _query: query.slice(0, 1000), _include_global: true, _limit: 8 });
+    if (query.trim()) for (const m of (motors ?? []).slice(0, build ? 30 : 5)) {
+      const { data } = await anyDb.rpc("search_cognitive_knowledge", { _motor_id: m.id, _query: query.slice(0, 1000), _include_global: true, _limit: build ? 4 : 8 });
       add(data);
     }
     if (rows.length < 4) {
@@ -83,9 +84,15 @@ async function loadLearnedKnowledge(db: DB, userId: string, query: string): Prom
         .eq("user_id", userId).eq("status", "active").eq("visibility", "global").order("updated_at", { ascending: false }).limit(8);
       add(data);
     }
+    if (build) {
+      // Modo Criar/Planejar: regras de todos os motores treinados são requisitos de engenharia.
+      const { data } = await anyDb.from("cognitive_knowledge").select("id, title, category, content, validation")
+        .eq("user_id", userId).eq("status", "active").in("kind", ["rule", "method", "architecture"]).order("updated_at", { ascending: false }).limit(24);
+      add(data);
+    }
     if (!rows.length) return "";
-    const lines = rows.slice(0, 12).map((r) => `- [${r.category ?? "geral"}${r.validation ? ` · ${r.validation}` : ""}] ${r.title}: ${String(r.content ?? "").slice(0, 500)}`);
-    return `## CONHECIMENTO COGNITIVO APRENDIDO (WLC.IA)\nAplique quando relevante (regras de negócio, conceitos ensinados, aprendizados de documentos). Itens "conflicting"/"hypothesis" não são certezas.\n${lines.join("\n")}\n\n`;
+    const lines = rows.slice(0, build ? 36 : 12).map((r) => `- [${r.category ?? "geral"}${r.validation ? ` · ${r.validation}` : ""}] ${r.title}: ${String(r.content ?? "").slice(0, 500)}`);
+    return `## CONHECIMENTO COGNITIVO APRENDIDO (WLC.IA)\n${build ? "OBRIGATÓRIO no Modo Criar: siga estas regras e métodos como padrão de engenharia ao gerar código; só desvie se contradizerem o pedido explícito do usuário.\n" : ""}Aplique quando relevante (regras de negócio, conceitos ensinados, aprendizados de documentos). Itens "conflicting"/"hypothesis" não são certezas.\n${lines.join("\n")}\n\n`;
   } catch { return ""; }
 }
 
@@ -260,6 +267,8 @@ export type ToolLogEntry = {
 };
 
 export type ModifiedFile = { path: string; change_type: "create" | "update" | "delete"; blob_sha: string | null; commit_sha: string };
+
+export const BUILD_LEARNING_NUDGE = "Aprendizado contínuo WLC.IA: antes do resumo final, chame save_memory (kind \"decision\" ou \"fix\") registrando em 2-4 frases a decisão de arquitetura, o padrão aplicado ou o bug corrigido e a causa, para que as próximas criações fiquem melhores. Depois escreva o resumo final.";
 
 class PausedError extends Error {
   checkpointId: string | null;
@@ -1129,7 +1138,7 @@ ${physicsContext}`
       social_tone: socialDecision.tone,
       contextual_followup: socialDecision.shortContextualReply,
     });
-    const learnedKnowledge = await loadLearnedKnowledge(db, userId, input.userMessage ?? "");
+    const learnedKnowledge = await loadLearnedKnowledge(db, userId, input.userMessage ?? "", mode);
     const messages: ChatMsg[] = [{ role: "system", content: officialCatalogPrompt(input.userMessage ?? "") + learnedKnowledge + systemPrompt(ctx.text, input.resumeNote, nexusWorkflow ?? undefined, combinedKnowledge, !!repo, cognitiveContext, modeSystemPrompt(mode, planApproved)) + modeInstruction(planApproved ? "build" : mode) + (mode === "chat" ? "" : buildCreationProtocol(planApproved ? "build" : mode, creationBlueprint)) }, ...history];
     await persistAgentEvent(input.resumedCheckpointId ? "execution_resumed" : "execution_started", "running",
       input.resumedCheckpointId ? "Execução retomada de checkpoint" : "Execução iniciada",
@@ -1138,6 +1147,7 @@ ${physicsContext}`
     let paused: PausedError | null = null;
     let nudges = 0;
     let auditRounds = 0;
+    let learnNudged = false;
     let lastAudit: AuditReport | null = null;
     try {
       slices: for (let cycle = 0; cycle < MAX_AUTO_CYCLES && !finalText; cycle++) {
@@ -1205,6 +1215,13 @@ ${physicsContext}`
         if (mode === "build" && nudges < 3 && (!wrote || ASKS_PERMISSION.test(reply))) {
           nudges++;
           messages.push({ role: "user", content: "Modo Criar: você já tem autorização total. Não pergunte nada nem peça confirmação. Continue agora gravando os arquivos com write_file/patch_file até o resultado completo estar pronto; só então escreva o resumo final." });
+          continue;
+        }
+        // Aprendizado contínuo: após gravar código, registra o aprendizado na memória do projeto (uma vez).
+        const learned = state.toolLog.some((e) => e.ok && e.tool === "save_memory");
+        if (mode === "build" && wrote && !learned && !learnNudged) {
+          learnNudged = true;
+          messages.push({ role: "user", content: BUILD_LEARNING_NUDGE });
           continue;
         }
         // Creation Intelligence v2: portão de qualidade — audita o que foi gravado e força autocorreção (máx. 2 rodadas).
