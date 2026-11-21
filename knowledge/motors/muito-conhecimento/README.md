@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 11
+Conhecimentos: 12
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -71,3 +71,9 @@ Todo dado vindo do frontend (cliente) é considerado hostil. Regras de negócio 
 _experience · Performance_
 
 O gerenciamento de memória em ambientes como V8 (Node/Browser) requer evitar retenção desnecessária de referências. O uso de Memory Leaks através de listeners não removidos ou closures globais é a principal causa de degradação em apps long-running. O monitoramento deve incluir Heap Snapshots para identificar objetos que não são coletados pelo Garbage Collector.
+
+## Base de Conhecimento Geral Unificada (Níveis 1 a 10)
+
+_architecture · Metodologia de Navegação de Conhecimento_
+
+Arquitetura estrutural para calibração de respostas de IA, dividida em 10 níveis de complexidade (Educação Infantil ao Mestrado). Utiliza a 'Regra de Navegação' (identificar nível e calibrar profundidade), a 'Regra de Honestidade' (focar em estrutura/ementa e perguntar prioridades em vez de despejo de dados) e a 'Regra de Conexão' (cruzamento multidisciplinar de temas).
