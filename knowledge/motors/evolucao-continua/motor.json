@@ -1,0 +1,20 @@
+{
+  "name": "Evolução Contínua (Projetos)",
+  "slug": "evolucao-continua",
+  "description": "Aprendizados extraídos automaticamente de cada projeto feito no Modo Criar.",
+  "knowledge": [
+    {
+      "title": "Projeto: Presetlojavirtual",
+      "kind": "concept",
+      "category": "projeto",
+      "keywords": [
+        "js",
+        "components",
+        "core",
+        "pages"
+      ],
+      "validation": "verified",
+      "content": "Pedido: Corrija js/core/db.js exportando initDb e adicione js/pages/product-detail.js, js/pages/checkout.js, js/components/toast.js e js/components/product-card.js para a loja virtual funcionar perfeitamente.\nEstrutura de pastas usada: js/components, js/core, js/pages\nArquivos criados/alterados (4): js/components/toast.js, js/core/db.js, js/pages/checkout.js, js/pages/product-detail.js\nTipos de arquivo: js\nExecução sem erros de ferramenta."
+    }
+  ]
+}
