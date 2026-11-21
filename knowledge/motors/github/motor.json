@@ -2,5 +2,105 @@
   "name": "Github",
   "slug": "github",
   "description": null,
-  "knowledge": []
+  "knowledge": [
+    {
+      "title": "GitHub Flow",
+      "kind": "method",
+      "category": "Fluxo de Trabalho",
+      "keywords": [
+        "github flow",
+        "main",
+        "branch",
+        "pull request"
+      ],
+      "validation": "source_validated",
+      "content": "Fluxo profissional de versionamento composto por 7 passos: 1. Criar branch da main atualizada; 2. Desenvolver e commitar; 3. Push da branch; 4. Abrir PR; 5. Review/CI; 6. Merge na main; 7. Deletar branch. Regra central: nunca commitar diretamente na main."
+    },
+    {
+      "title": "Conventional Commits",
+      "kind": "rule",
+      "category": "Padrão de Commits",
+      "keywords": [
+        "conventional commits",
+        "commit",
+        "mensagens"
+      ],
+      "validation": "source_validated",
+      "content": "Formato padronizado de mensagens de commit: `<tipo>(<escopo>): <descrição imperativa>`. Deve ser minúsculo, sem ponto final, sem emojis e no imperativo. Tipos comuns: feat, fix, refactor, docs, chore, test, perf, ci, revert."
+    },
+    {
+      "title": "git bisect",
+      "kind": "algorithm",
+      "category": "Debugging",
+      "keywords": [
+        "git bisect",
+        "debugging",
+        "causa raiz"
+      ],
+      "validation": "source_validated",
+      "content": "Técnica de busca binária no histórico de commits para encontrar o 'first bad commit'. Inicia-se com 'git bisect start', marca-se o estado ruim ('git bisect bad') e o bom conhecido ('git bisect good <hash>'). O Git navega pelo histórico para isolar a causa raiz."
+    },
+    {
+      "title": "Regra de Reversão de Histórico",
+      "kind": "rule",
+      "category": "Gestão de Histórico",
+      "keywords": [
+        "git revert",
+        "git reset",
+        "histórico",
+        "push"
+      ],
+      "validation": "source_validated",
+      "content": "Para desfazer commits já enviados (push) em branches compartilhadas, utiliza-se 'git revert', pois ele cria um novo commit sem reescrever o histórico. O 'git reset' só deve ser usado em branches locais, nunca em compartilhadas, para evitar quebra de histórico para terceiros."
+    },
+    {
+      "title": "Nomenclatura de Branches",
+      "kind": "rule",
+      "category": "Organização",
+      "keywords": [
+        "branch",
+        "nomenclatura",
+        "git"
+      ],
+      "validation": "source_validated",
+      "content": "Branches devem ser criadas seguindo o padrão `categoria/descricao-curta` usando minúsculas e hífens. Categorias: feat/, fix/, refactor/, docs/, chore/."
+    },
+    {
+      "title": "Prevenção de Exposição de Segredos",
+      "kind": "rule",
+      "category": "Segurança",
+      "keywords": [
+        "segurança",
+        "secrets",
+        "gitignore",
+        "filter-repo"
+      ],
+      "validation": "source_validated",
+      "content": "Nunca commitar arquivos sensíveis (.env, *.key, *.pem). Se ocorrer, remover do histórico usando 'git filter-repo' ou 'BFG Repo-Cleaner' e revogar as credenciais imediatamente."
+    },
+    {
+      "title": "Fluxo de Debug de 6 Passos",
+      "kind": "method",
+      "category": "Metodologia",
+      "keywords": [
+        "debug",
+        "protocolo",
+        "causa raiz"
+      ],
+      "validation": "source_validated",
+      "content": "Protocolo para resolução de problemas: 1. Reproduzir bug consistentemente; 2. Isolar causa raiz com git bisect; 3. Analisar commit culpado; 4. Criar branch de fix; 5. Escrever teste que reproduz o erro; 6. Corrigir, commitar seguindo Conventional Commits e abrir PR."
+    },
+    {
+      "title": "Git Force-With-Lease",
+      "kind": "technique",
+      "category": "Segurança",
+      "keywords": [
+        "force-with-lease",
+        "push",
+        "segurança"
+      ],
+      "validation": "source_validated",
+      "content": "Alternativa segura ao 'git push --force'. Aborta o push caso alguém tenha enviado alterações para a branch remota desde o seu último fetch, evitando sobrescrever trabalho alheio."
+    }
+  ]
 }
