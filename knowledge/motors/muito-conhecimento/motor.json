@@ -674,6 +674,20 @@
       ],
       "validation": "source_validated",
       "content": "Para formulários mobile: 1. Definir font-size mínimo de 16px nos inputs para evitar zoom automático do iOS; 2. Utilizar atributos 'inputmode' e 'autocomplete' específicos para invocar o teclado correto e facilitar o preenchimento."
+    },
+    {
+      "title": "Regra da Validação de Responsividade em CI",
+      "kind": "rule",
+      "category": "Qualidade de Software",
+      "keywords": [
+        "playwright",
+        "ci",
+        "responsividade",
+        "qa",
+        "deploy"
+      ],
+      "validation": "source_validated",
+      "content": "Para garantir a integridade da experiência do usuário, testes de responsividade em múltiplos breakpoints (mobile, tablet, desktop) devem ser integrados ao pipeline de CI. Falhas em qualquer breakpoint devem interromper o processo de deploy, tratando a responsividade como um requisito de qualidade inegociável, não como uma funcionalidade opcional."
     }
   ]
 }
