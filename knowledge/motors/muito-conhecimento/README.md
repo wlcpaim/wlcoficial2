@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 14
+Conhecimentos: 20
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -89,3 +89,39 @@ Protocolo para ajustar a densidade técnica e a complexidade de uma resposta de 
 _rule · Cognição de IA_
 
 Princípio de síntese que busca relacionar um conceito central através de diferentes disciplinas (ex: História, Geografia, Literatura) para demonstrar domínio sistêmico do conhecimento, em vez de fornecer listas de conteúdos isolados.
+
+## Modelo SER de Liderança
+
+_method · Liderança_
+
+Modelo de gestão composto por três pilares essenciais: Segurança Psicológica (o time pode errar e ser honesto), Expectativa Clara (o quê, quando, critério e autonomia) e Reconhecimento (específico, público e imediato). A falha ocorre quando um dos pilares é negligenciado: falta de Segurança gera medo/omissão; falta de Expectativa gera desorientação; falta de Reconhecimento gera esgotamento.
+
+## Modelo SCI (Situação-Comportamento-Impacto)
+
+_method · Feedback_
+
+Técnica de feedback para correções evitando ataques pessoais. Situação: descreve o contexto. Comportamento: descreve a ação observável ou erro cometido. Impacto: descreve a consequência real daquele comportamento. Foca no processo e no fato, não na personalidade do indivíduo.
+
+## Modelo 4D para Demissões
+
+_method · Liderança_
+
+Protocolo para desligamentos profissionais visando manter a dignidade: 1. Decisão (comunicar que é final); 2. Direto (motivo real sem rodeios); 3. Dignidade (não humilhar e reconhecer valor); 4. Detalhes (passagem para RH/verbas).
+
+## Modelo PPA de Vulnerabilidade
+
+_method · Intimidade_
+
+Estrutura para interações de alta vulnerabilidade: Presença (estar inteiro, sem consertar), Profundidade (calibrar o que revelar) e Acolhimento (receber sem julgar). Essencial para criar conexão real sem ultrapassar limites adequados ao nível da relação.
+
+## Regra da Calibragem de Vulnerabilidade
+
+_rule · Comunicação_
+
+Protocolo de seletividade na revelação pessoal: a vulnerabilidade deve ser proporcional ao nível da relação (fato -> emoção -> medo -> ferida -> núcleo). Deve-se pedir permissão antes de se abrir e revelar apenas um nível acima do que o interlocutor revelou para evitar a 'invasão de espaço emocional'.
+
+## Regra da Intenção vs. Impacto
+
+_rule · Comunicação_
+
+Na mediação de conflitos ou comunicação intercultural, o impacto (o que o outro sentiu/recebeu) é considerado o fato consumado, enquanto a intenção é apenas a motivação do agente. Reconhecer o impacto antes de justificar a intenção é a base para a maturidade social e correção de vieses.
