@@ -2,5 +2,72 @@
   "name": "Estrutura de Projetos",
   "slug": "estrutura-de-projetos",
   "description": null,
-  "knowledge": []
+  "knowledge": [
+    {
+      "title": "Framework de Planejamento de Projetos (14 Fases)",
+      "kind": "method",
+      "category": "Metodologia de Engenharia de Software",
+      "keywords": [
+        "planejamento",
+        "desenvolvimento",
+        "arquitetura de software",
+        "mvp",
+        "ciclo de vida"
+      ],
+      "validation": "source_validated",
+      "content": "Metodologia estruturada para o desenvolvimento de software, dividida em 14 fases sequenciais que vão do Discovery (validação de problema) até a execução e adaptação. O foco central é a decisão documentada, definição clara de escopo (MVP), arquitetura validada e plano de execução antes da codificação, evitando retrabalho e scope creep."
+    },
+    {
+      "title": "Regra do MVP (Mínimo Viável)",
+      "kind": "rule",
+      "category": "Gestão de Produto",
+      "keywords": [
+        "mvp",
+        "produto",
+        "escopo",
+        "feature"
+      ],
+      "validation": "source_validated",
+      "content": "Um MVP deve ser a versão mínima que resolve a dor central para pelo menos um usuário real. Não é uma versão beta ou incompleta, mas um produto capaz de validar a hipótese de valor. Uma feature só deve estar no MVP se, ao removê-la, o produto perder sua capacidade de resolver a dor do usuário."
+    },
+    {
+      "title": "Documento de ADR (Architecture Decision Record)",
+      "kind": "concept",
+      "category": "Arquitetura de Software",
+      "keywords": [
+        "adr",
+        "arquitetura",
+        "decisão técnica",
+        "documentação"
+      ],
+      "validation": "source_validated",
+      "content": "Formato de documentação técnica para registrar decisões que custam mais de uma semana de esforço para serem revertidas. Deve conter contexto, decisão, consequências (positivas/negativas) e alternativas consideradas. O ADR garante que a justificativa técnica não seja esquecida ao longo do tempo."
+    },
+    {
+      "title": "Modelo de Domínio e Invariantes",
+      "kind": "method",
+      "category": "Domain-Driven Design",
+      "keywords": [
+        "modelagem de domínio",
+        "invariantes",
+        "regras de negócio",
+        "testes"
+      ],
+      "validation": "source_validated",
+      "content": "Representação conceitual das entidades de negócio antes da definição de tabelas de banco de dados. Invariantes são regras de negócio imutáveis que devem sempre ser verdadeiras e que devem ser garantidas por testes automatizados, servindo como a fundação lógica do sistema."
+    },
+    {
+      "title": "Requisitos Não-Funcionais Críticos",
+      "kind": "fact",
+      "category": "Arquitetura de Software",
+      "keywords": [
+        "requisitos não-funcionais",
+        "performance",
+        "escala",
+        "segurança"
+      ],
+      "validation": "source_validated",
+      "content": "Requisitos que definem a viabilidade técnica do produto, frequentemente negligenciados: Performance (latência), Escala (usuários simultâneos), Disponibilidade (uptime), Segurança (OWASP/LGPD), Acessibilidade (WCAG), Compatibilidade, Manutenibilidade e Custo operacional."
+    }
+  ]
 }
