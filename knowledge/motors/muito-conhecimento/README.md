@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 20
+Conhecimentos: 24
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -96,12 +96,6 @@ _method · Liderança_
 
 Modelo de gestão composto por três pilares essenciais: Segurança Psicológica (o time pode errar e ser honesto), Expectativa Clara (o quê, quando, critério e autonomia) e Reconhecimento (específico, público e imediato). A falha ocorre quando um dos pilares é negligenciado: falta de Segurança gera medo/omissão; falta de Expectativa gera desorientação; falta de Reconhecimento gera esgotamento.
 
-## Modelo SCI (Situação-Comportamento-Impacto)
-
-_method · Feedback_
-
-Técnica de feedback para correções evitando ataques pessoais. Situação: descreve o contexto. Comportamento: descreve a ação observável ou erro cometido. Impacto: descreve a consequência real daquele comportamento. Foca no processo e no fato, não na personalidade do indivíduo.
-
 ## Modelo 4D para Demissões
 
 _method · Liderança_
@@ -125,3 +119,33 @@ Protocolo de seletividade na revelação pessoal: a vulnerabilidade deve ser pro
 _rule · Comunicação_
 
 Na mediação de conflitos ou comunicação intercultural, o impacto (o que o outro sentiu/recebeu) é considerado o fato consumado, enquanto a intenção é apenas a motivação do agente. Reconhecer o impacto antes de justificar a intenção é a base para a maturidade social e correção de vieses.
+
+## Modelo NIPA de Negociação
+
+_method · Negociação e Persuasão_
+
+Estrutura para negociações éticas focada em interesses, não em posições. Fases: 1. Necessidades (descobrir interesses reais via perguntas abertas, evitando ancoragem inicial); 2. Interesses ocultos (identificar camadas emocionais e inconscientes através da escuta ativa); 3. Possibilidades (gerar pelo menos 3 opções, buscando expandir o valor total antes de dividir); 4. Acordo (formalização com 4 elementos: o quê, quando, quem e consequência).
+
+## Modelo PONTE de Mediação
+
+_method · Mediação de Conflitos_
+
+Protocolo para mediadores terceiros manterem neutralidade processual. Fases: 1. Preparar (conversas individuais obrigatórias para identificar limites e evitar explosões); 2. Ouvir (sessão conjunta com regras de convivência rígidas e reformulação); 3. Nomear (traduzir queixas em necessidades reais); 4. Transformar (mediador pergunta, partes geram soluções); 5. Estabelecer (acordo claro com 4 elementos).
+
+## Regra da Simetria de Poder
+
+_rule · Mediação de Conflitos_
+
+A mediação exige simetria de poder entre as partes. Em casos de abuso, violência, controle sistemático ou desigualdade extrema, a mediação é contraindicada, pois a estrutura torna-se uma plataforma de manipulação. Nesses cenários, o mediador deve recusar o papel e encaminhar para proteção especializada.
+
+## Regra da Validação do Acordo
+
+_rule · Negociação e Mediação_
+
+Todo acordo, seja de negociação ou mediação, deve ser repetido em voz alta pelas partes antes de ser considerado finalizado. O resumo deve obrigatoriamente conter quatro elementos: escopo (o quê), prazo (quando), responsável (quem) e consequência em caso de descumprimento.
+
+## Técnica de Tradução de Queixa em Necessidade
+
+_technique · Mediação de Conflitos_
+
+Habilidade central de mediação onde o mediador traduz a fala agressiva ou subjetiva (queixa) em uma demanda objetiva e legítima (necessidade). Exemplo: 'Ele nunca me escuta' traduzido para 'Você precisa ser ouvido antes de decisões que afetam o seu trabalho?'. Isso reduz a defensividade e foca na solução.
