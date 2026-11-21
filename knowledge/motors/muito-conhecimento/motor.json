@@ -144,16 +144,17 @@
     {
       "title": "Base de Conhecimento Geral Unificada (Níveis 1 a 10)",
       "kind": "architecture",
-      "category": "Metodologia de Navegação de Conhecimento",
+      "category": "Arquitetura Educacional",
       "keywords": [
-        "níveis de conhecimento",
-        "calibração de resposta",
+        "base de conhecimento geral unificada",
+        "regra de navegação",
+        "regra de honestidade",
+        "regra de conexão",
         "bncc",
-        "base de conhecimento",
-        "multidisciplinaridade"
+        "capes"
       ],
       "validation": "source_validated",
-      "content": "Arquitetura estrutural para calibração de respostas de IA, dividida em 10 níveis de complexidade (Educação Infantil ao Mestrado). Utiliza a 'Regra de Navegação' (identificar nível e calibrar profundidade), a 'Regra de Honestidade' (focar em estrutura/ementa e perguntar prioridades em vez de despejo de dados) e a 'Regra de Conexão' (cruzamento multidisciplinar de temas)."
+      "content": "Mapa estrutural que organiza o conhecimento formal em 10 níveis de complexidade, desde a Educação Infantil até a Pós-Graduação (Lato e Stricto Sensu). A estrutura utiliza a 'Regra de Navegação' (identificação do nível e calibração de profundidade), 'Regra de Honestidade' (foco em estrutura/ementa e priorização de tópicos) e 'Regra de Conexão' (interdisciplinaridade)."
     }
   ]
 }
