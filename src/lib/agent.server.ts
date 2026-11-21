@@ -1,5 +1,6 @@
 // Development agent runtime: context assembly, tool execution against GitHub,
 // key failover with checkpoints, verification-based auditing and resume.
+import { officialCatalogPrompt } from "./cognitive-official-catalog";
 import { appendExchange, chatLogPath } from "./chat-log-sync";
 import { allowedTools, isApprovalMessage, modeSystemPrompt, parseMode, PLAN_APPROVAL_WINDOW_MS } from "./mode-policy";
 import { modeInstruction, attachmentsForModel, type ChatMode, type ChatAttachment } from "./chat-modes";
@@ -1129,7 +1130,7 @@ ${physicsContext}`
       contextual_followup: socialDecision.shortContextualReply,
     });
     const learnedKnowledge = await loadLearnedKnowledge(db, userId, input.userMessage ?? "");
-    const messages: ChatMsg[] = [{ role: "system", content: learnedKnowledge + systemPrompt(ctx.text, input.resumeNote, nexusWorkflow ?? undefined, combinedKnowledge, !!repo, cognitiveContext, modeSystemPrompt(mode, planApproved)) + modeInstruction(planApproved ? "build" : mode) + (mode === "chat" ? "" : buildCreationProtocol(planApproved ? "build" : mode, creationBlueprint)) }, ...history];
+    const messages: ChatMsg[] = [{ role: "system", content: officialCatalogPrompt(input.userMessage ?? "") + learnedKnowledge + systemPrompt(ctx.text, input.resumeNote, nexusWorkflow ?? undefined, combinedKnowledge, !!repo, cognitiveContext, modeSystemPrompt(mode, planApproved)) + modeInstruction(planApproved ? "build" : mode) + (mode === "chat" ? "" : buildCreationProtocol(planApproved ? "build" : mode, creationBlueprint)) }, ...history];
     await persistAgentEvent(input.resumedCheckpointId ? "execution_resumed" : "execution_started", "running",
       input.resumedCheckpointId ? "Execução retomada de checkpoint" : "Execução iniciada",
       { resumed_checkpoint_id: input.resumedCheckpointId ?? null, model: chat.model });

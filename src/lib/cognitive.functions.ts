@@ -5,6 +5,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { slugify } from "./cognitive/files";
 import { COGNITIVE_RULES, buildMemoryBlock, buildStudyBlock } from "./cognitive/prompts";
 import type { ChatMsg } from "./ai.server";
+import { OFFICIAL_MOTORS } from "./cognitive-official-catalog";
 
 const uuid = z.string().uuid();
 
@@ -18,6 +19,29 @@ async function background(p: Promise<unknown>) {
   } catch { /* not on workers */ }
   await safe;
 }
+
+/** Hydrates the user's database with the official motors from the source code (idempotent, by slug). */
+export const ensureOfficialMotors = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const db = context.supabase as any;
+    const { data: existing } = await db.from("cognitive_motors").select("slug").in("slug", OFFICIAL_MOTORS.map((m) => m.slug));
+    const have = new Set((existing ?? []).map((r: any) => r.slug));
+    let created = 0;
+    for (const m of OFFICIAL_MOTORS) {
+      if (have.has(m.slug)) continue;
+      const { data: motor, error } = await db.from("cognitive_motors").insert({ user_id: context.userId, name: m.name, slug: m.slug, description: m.description }).select("id").single();
+      if (error || !motor) continue;
+      const rows = [
+        ...m.rules.map((r) => ({ user_id: context.userId, motor_id: motor.id, title: r.slice(0, 120), content: r, category: "regra", kind: "rule", keywords: [], status: "active", visibility: "global", validation: "verified", learned_how: "catálogo oficial (código-fonte)" })),
+        ...m.concepts.map((k) => ({ user_id: context.userId, motor_id: motor.id, title: k.title, content: k.content, category: k.domain, kind: "concept", keywords: k.keywords, status: "active", visibility: "global", validation: "verified", learned_how: "catálogo oficial (código-fonte)" })),
+      ];
+      for (let i = 0; i < rows.length; i += 100) await db.from("cognitive_knowledge").insert(rows.slice(i, i + 100));
+      await db.from("cognitive_conversations").insert({ user_id: context.userId, motor_id: motor.id, title: "Primeira conversa" });
+      created++;
+    }
+    return { created };
+  });
 
 export const createMotor = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])

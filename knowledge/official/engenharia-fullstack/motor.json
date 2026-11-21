@@ -1,0 +1,21 @@
+{
+  "version": "1.0.0",
+  "slug": "engenharia-fullstack",
+  "name": "Engenharia Fullstack & Arquitetura Web",
+  "description": "Arquitetura, APIs, banco de dados, segurança e boas práticas de engenharia.",
+  "rules": [
+    "Separar lógica de servidor do cliente; segredos nunca chegam ao navegador.",
+    "Toda tabela de usuário é protegida por RLS com user_id = auth.uid().",
+    "Mudanças pequenas, testadas e com commit descritivo."
+  ],
+  "concepts": [
+    "fs-be-01",
+    "fs-be-02",
+    "fs-db-01",
+    "fs-fe-01",
+    "fs-fe-02",
+    "fs-ops-01",
+    "fs-ops-02",
+    "fs-ops-03"
+  ]
+}

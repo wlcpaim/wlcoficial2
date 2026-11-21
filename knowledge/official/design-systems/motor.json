@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0",
+  "slug": "design-systems",
+  "name": "Design Systems & UI/UX Profissional",
+  "description": "Tokens, tipografia, cor, acessibilidade e interfaces consistentes.",
+  "rules": [
+    "Cores e sombras sempre por tokens semânticos, nunca valores soltos.",
+    "Contraste e acessibilidade (WCAG AA) são obrigatórios.",
+    "Uma direção visual coerente por projeto."
+  ],
+  "concepts": [
+    "ds-core-01",
+    "ds-core-02",
+    "ds-core-03",
+    "ds-core-04",
+    "ds-tw-01",
+    "ds-tw-02",
+    "ds-tw-03",
+    "ds-tw-04",
+    "ds-bs-01",
+    "ds-bs-02",
+    "ds-bs-03",
+    "ds-bu-01",
+    "ds-bu-02",
+    "ds-pi-01",
+    "ds-pi-02",
+    "ds-mod-01",
+    "ds-mod-02",
+    "ds-mod-03"
+  ]
+}

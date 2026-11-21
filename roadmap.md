@@ -4,3 +4,5 @@
 - [x] Migrate wlcia-main_2.zip archive into this project (code, database, sign-in, secrets, verification)
 - [x] Answer: suggest good next steps after the remix
 - [ ] Import existing records and users (waiting on exports from the old backend)
+
+- [x] Conhecimento oficial permanente em código-fonte (catálogo, seed, menu, prompt)

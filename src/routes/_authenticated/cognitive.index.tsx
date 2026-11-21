@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { BrainCircuit, BookOpen, Download, FileText, MessageSquare, Plus, Search, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,7 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { createMotor } from "@/lib/cognitive.functions";
+import { createMotor, ensureOfficialMotors } from "@/lib/cognitive.functions";
+import { OFFICIAL_MOTORS, isOfficialMotor } from "@/lib/cognitive-official-catalog";
 import { downloadExport } from "@/components/cognitive/shared";
 
 export const Route = createFileRoute("/_authenticated/cognitive/")({
@@ -24,6 +25,10 @@ function CognitiveHome() {
   const [desc, setDesc] = useState("");
   const [busy, setBusy] = useState(false);
   const [q, setQ] = useState("");
+  const qc = useQueryClient();
+  useEffect(() => {
+    ensureOfficialMotors().then((r) => { if (r.created) qc.invalidateQueries({ queryKey: ["cognitive-home"] }); }).catch(() => {});
+  }, [qc]);
   const { data, isLoading, error } = useQuery({ queryKey: ["cognitive-home"], queryFn: async () => {
     const [m, k, d, c, msg] = await Promise.all([
       supabase.from("cognitive_motors").select("*").order("last_activity_at", { ascending: false }),
@@ -83,7 +88,17 @@ function CognitiveHome() {
           </div>
         )}
         <h2 className="pt-2 font-semibold">Motores de conhecimento</h2>
-        {!filtered.length ? <Empty>Nenhum motor ainda. Clique em “Novo chat” para criar o primeiro (ex.: “Motores v0.1”).</Empty> : (
+        {!filtered.length ? (
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {OFFICIAL_MOTORS.map((m) => (
+              <div key={m.slug} className="space-y-2 rounded-lg border bg-card p-4">
+                <div className="flex items-center gap-2"><BrainCircuit className="h-4 w-4 text-primary" /><span className="truncate font-medium">{m.name}</span><span className="rounded bg-primary/10 px-1.5 text-xs text-primary">oficial</span></div>
+                <p className="line-clamp-2 text-sm text-muted-foreground">{m.description}</p>
+                <div className="text-xs text-muted-foreground">{m.rules.length} regras · {m.concepts.length} conceitos · preparando…</div>
+              </div>
+            ))}
+          </div>
+        ) : (
           <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {filtered.map((m) => {
               const k = data.knowledge.filter((x) => x.motor_id === m.id && x.status === "active").length;
@@ -91,7 +106,7 @@ function CognitiveHome() {
               const c = data.convs.filter((x) => x.motor_id === m.id).length;
               return (
                 <Link key={m.id} to="/cognitive/$motorId" params={{ motorId: m.id }} className="space-y-2 rounded-lg border bg-card p-4 transition hover:border-primary/50">
-                  <div className="flex items-center gap-2"><BrainCircuit className="h-4 w-4 text-primary" /><span className="truncate font-medium">{m.name}</span>{m.status === "archived" && <span className="text-xs text-muted-foreground">(arquivado)</span>}</div>
+                  <div className="flex items-center gap-2"><BrainCircuit className="h-4 w-4 text-primary" /><span className="truncate font-medium">{m.name}</span>{isOfficialMotor(m.slug) && <span className="rounded bg-primary/10 px-1.5 text-xs text-primary">oficial</span>}{m.status === "archived" && <span className="text-xs text-muted-foreground">(arquivado)</span>}</div>
                   {m.description && <p className="line-clamp-2 text-sm text-muted-foreground">{m.description}</p>}
                   <div className="flex flex-wrap gap-3 text-xs text-muted-foreground"><span>{c} conversas</span><span>{d} documentos</span><span>{k} conhecimentos</span></div>
                   <div className="text-xs text-muted-foreground">Última aprendizagem: {m.last_learning_at ? fmt(m.last_learning_at) : "—"}</div>

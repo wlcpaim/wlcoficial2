@@ -1,0 +1,34 @@
+{
+  "version": "1.0.0",
+  "slug": "game-studio-fisica",
+  "name": "Game Studio & Física/Matemática Determinística",
+  "description": "Loops de jogo, física determinística, matemática e simulação.",
+  "rules": [
+    "Física em passo fixo (fixed timestep) para resultados determinísticos.",
+    "Cálculos verificados por operação inversa ou substituição.",
+    "Separar simulação de renderização."
+  ],
+  "concepts": [
+    "gs-core-01",
+    "gs-core-02",
+    "gs-core-03",
+    "gs-phys-01",
+    "gs-phys-02",
+    "gs-phys-03",
+    "gs-phys-04",
+    "gs-math-01",
+    "gs-math-02",
+    "gs-web-01",
+    "gs-web-02",
+    "gs-web-03",
+    "gs-mech-01",
+    "gs-mech-02",
+    "gs-build-01",
+    "gs-build-02",
+    "gs-plat-01",
+    "gs-plat-02",
+    "gs-plat-03",
+    "gs-ai-01",
+    "gs-ai-02"
+  ]
+}
