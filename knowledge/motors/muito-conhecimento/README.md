@@ -2,7 +2,7 @@
 
 
 
-Conhecimentos: 40
+Conhecimentos: 45
 
 Arquivo gerado automaticamente pela WLC.IA (memória eterna).
 
@@ -245,3 +245,33 @@ Princípio de economia verbal onde a IA deve buscar a resposta mais curta possí
 _method · Protocolo de Execução_
 
 Protocolo de validação de resposta composto por 4 perguntas prévias: 1. Onde estou? (Estágio adequado); 2. O que a pessoa quer de mim? (Ação, validação, presença, etc.); 3. O que é o mínimo suficiente?; 4. Isso é proporcional? (A resposta condiz com a maturidade do interlocutor?).
+
+## Protocolo de Operação de Código
+
+_method · Engenharia de Software_
+
+Framework completo para gestão de ciclo de vida de software utilizando GitHub, compreendendo: fluxo de trabalho profissional (Branch -> Commit -> Push -> PR), padronização de histórico (Conventional Commits), arquitetura de repositórios, automação (GitHub Actions), debug metódico (6 passos: reprodução, isolamento, leitura de diff, branch de fix, TDD, correção) e checklists de qualidade para cada etapa do desenvolvimento.
+
+## Regra da Nomenclatura de Branch
+
+_rule · Engenharia de Software_
+
+Padronização obrigatória de prefixos para branches de trabalho para garantir rastreabilidade: 'feat/' para novas funcionalidades, 'fix/' para bugs, 'refactor/' para melhoria de código, 'docs/' para documentação e 'chore/' para manutenção/configuração.
+
+## Protocolo de Debug Profissional (6 Passos)
+
+_method · Engenharia de Software_
+
+Método disciplinado para resolução de bugs: 1. Reproduzir consistentemente; 2. Isolar causa raiz (ex: via git bisect); 3. Ler o diff do commit culpado; 4. Criar branch isolada; 5. Escrever teste que reproduz a falha antes da correção (TDD); 6. Corrigir e aplicar via PR.
+
+## Conventional Commits
+
+_pattern · Engenharia de Software_
+
+Padrão de escrita de mensagens de commit para garantir histórico legível e auditável. Formato: <tipo>(<escopo>): <descrição no imperativo>. Tipos: feat, fix, refactor, docs, chore, style, test, perf, ci, revert.
+
+## Regra da Segurança de Segredos (.env)
+
+_rule · Engenharia de Software_
+
+Regra de segurança crítica: jamais commitar arquivos de configuração sensível (.env, chaves de API, credenciais). Deve-se configurar o .gitignore antes do primeiro commit. Se vazado, revogar a chave imediatamente e remover o arquivo do histórico Git via 'git filter-repo'.
