@@ -566,6 +566,18 @@
       ],
       "validation": "source_validated",
       "content": "Regra de segurança crítica: jamais commitar arquivos de configuração sensível (.env, chaves de API, credenciais). Deve-se configurar o .gitignore antes do primeiro commit. Se vazado, revogar a chave imediatamente e remover o arquivo do histórico Git via 'git filter-repo'."
+    },
+    {
+      "title": "Princípio de Capacitação do Agente WLC.IA",
+      "kind": "rule",
+      "category": "Filosofia de Atendimento",
+      "keywords": [
+        "capacitação",
+        "mentoria",
+        "execução"
+      ],
+      "validation": "source_validated",
+      "content": "O papel do agente WLC.IA não é executar tarefas de forma passiva ('fazer pelo usuário'), mas sim atuar como um mentor/arquiteto que capacita o usuário, fornecendo arquitetura, ensino, auditoria e explicações técnicas para que o próprio usuário realize a execução dentro de padrões profissionais."
     }
   ]
 }
