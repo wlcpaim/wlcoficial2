@@ -101,6 +101,102 @@
       ],
       "validation": "source_validated",
       "content": "Alternativa segura ao 'git push --force'. Aborta o push caso alguém tenha enviado alterações para a branch remota desde o seu último fetch, evitando sobrescrever trabalho alheio."
+    },
+    {
+      "title": "Regra de Ouro da Escala",
+      "kind": "rule",
+      "category": "Regra",
+      "keywords": [
+        "escala",
+        "gargalo",
+        "arquitetura"
+      ],
+      "validation": "source_validated",
+      "content": "A escala é um processo de resolução de gargalos estruturais em ordem fixa: 1. Banco de dados, 2. Falta de cache, 3. Processamento síncrono, 4. Assets, 5. Conexões, 6. Coordenação. Otimizar um estágio superior ignorando o gargalo atual é ineficaz (Lei de Amdahl)."
+    },
+    {
+      "title": "Método dos 3 Sinais para Diagnóstico de Gargalos",
+      "kind": "method",
+      "category": "Método",
+      "keywords": [
+        "diagnóstico",
+        "gargalo",
+        "performance"
+      ],
+      "validation": "source_validated",
+      "content": "Diagnóstico de performance baseado em sintomas: CPU alta (algoritmo/serialização); Memória alta (cache local/vazamento); Latência alta + CPU baixa (I/O, rede, banco); Erro 'too many connections' (pool/queries lentas); Latência sobe com carga (gargalo de recurso); Latência constante/alta (API terceira)."
+    },
+    {
+      "title": "Regra de Cursor Pagination",
+      "kind": "rule",
+      "category": "Regra",
+      "keywords": [
+        "paginação",
+        "banco de dados",
+        "performance"
+      ],
+      "validation": "source_validated",
+      "content": "Em datasets grandes, prefira 'cursor pagination' em vez de 'offset pagination'. O 'offset' exige que o banco conte todos os registros anteriores, degradando linearmente conforme o volume cresce. O cursor permite salto direto ao próximo conjunto de dados."
+    },
+    {
+      "title": "Fórmula de Pool de Conexões",
+      "kind": "formula",
+      "category": "Fórmula",
+      "keywords": [
+        "conexões",
+        "banco de dados",
+        "pool"
+      ],
+      "validation": "source_validated",
+      "content": "O dimensionamento de conexões de banco deve seguir: pool_size = (número_de_instâncias * workers_por_instância * 2) + margem. A soma total nunca deve exceder o limite máximo do banco de dados."
+    },
+    {
+      "title": "Padrão de Idempotência em Filas",
+      "kind": "pattern",
+      "category": "Padrão",
+      "keywords": [
+        "fila",
+        "idempotência",
+        "worker"
+      ],
+      "validation": "source_validated",
+      "content": "Todo job de fila é suscetível a duplicidade. É obrigatório implementar chave de idempotência utilizando um storage rápido (como Redis) para marcar um processo como 'concluído' antes de executar a lógica de negócio, prevenindo re-processamento."
+    },
+    {
+      "title": "Regra de Cache Busting",
+      "kind": "rule",
+      "category": "Regra",
+      "keywords": [
+        "cdn",
+        "cache",
+        "assets"
+      ],
+      "validation": "source_validated",
+      "content": "Para assets, nunca utilize nomes estáticos se o conteúdo mudar. Use hashes no nome do arquivo (ex: image.hash.webp) e defina o header 'Cache-Control: public, max-age=31536000, immutable'. Isso garante que a CDN sirva a versão correta sem servir versões obsoletas."
+    },
+    {
+      "title": "Proteção Contra Cache Stampede",
+      "kind": "technique",
+      "category": "Técnica",
+      "keywords": [
+        "cache",
+        "stampede",
+        "performance"
+      ],
+      "validation": "source_validated",
+      "content": "Quando uma chave de cache expira sob alta carga, múltiplos requests podem tentar recomputar o mesmo valor simultaneamente, sobrecarregando o banco. Soluções incluem: 1. 'Lock distribuído' (garante que apenas um processo compute); 2. 'Stale-while-revalidate' (serve a versão antiga enquanto um worker em background atualiza o cache)."
+    },
+    {
+      "title": "Instrumentação de Queries de Banco",
+      "kind": "technique",
+      "category": "Técnica",
+      "keywords": [
+        "banco de dados",
+        "monitoramento",
+        "query"
+      ],
+      "validation": "source_validated",
+      "content": "Toda query de negócio deve ser nomeada. Sem um nome único no código, é impossível rastrear a origem do gargalo nos dashboards de monitoramento. Utilize 'EXPLAIN ANALYZE' antes de enviar qualquer query nova para produção para identificar 'Seq Scan' em tabelas grandes."
     }
   ]
 }
